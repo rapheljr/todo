@@ -15,7 +15,7 @@ const loginHandler = (req, res, next) => {
   const { password } = req.body;
   if (req.todo.verifyUser(username.toLowerCase(), password)) {
     createSession(req, {});
-    return res.redirect('/home');
+    return res.redirect('/');
   }
   return res.end('Invalid username or password!');
 };

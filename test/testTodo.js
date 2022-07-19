@@ -75,7 +75,7 @@ describe('todo', () => {
       request(createApp(config))
         .post('/login')
         .send('username=user&password=pass')
-        .expect('location', '/home')
+        .expect('location', '/')
         .expect(302, done)
     });
 
