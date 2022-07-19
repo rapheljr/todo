@@ -4,6 +4,8 @@ const cookieParser = require('cookie-parser');
 const cookieSession = require('cookie-session');
 
 const { homeHandler } = require('./handlers/home.js');
+const { loginHandler } = require('./handlers/login.js');
+const { injectDB } = require('./middlewares/injectDB.js');
 
 const createApp = (config) => {
   const { path, session, db, env } = config;
@@ -19,8 +21,10 @@ const createApp = (config) => {
 
   app.use(cookieParser());
   app.use(cookieSession(session));
+  app.use(injectDB(db));
 
   app.get('/', homeHandler);
+  app.post('/login', loginHandler);
 
   app.use(express.static(path));
 
