@@ -51,6 +51,23 @@ class TODO {
   getDetails() {
     return this.#content;
   };
+
+  getDetailsFrom() {
+    return this.#content.users.find((user) => user.username === this.#username);
+  }
+
+  getListsFrom() {
+    return this.#content.lists.filter((list) =>
+      list.username === this.#username);
+  }
+
+  getUserDetails() {
+    const { id, name, username } = this.getDetailsFrom();
+    const lists = this.getListsFrom();
+    return {
+      id, name, username, lists
+    };
+  };
 }
 
 module.exports = { TODO };

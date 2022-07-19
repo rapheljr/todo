@@ -9,9 +9,9 @@ const hardCode = {
 
 const homeHandler = (req, res, next) => {
   if (req.session.id) {
-    const content = createHome(hardCode);
+    // const content = createHome(hardCode);
+    const content = createHome(req.todo.getUserDetails());
     return res.end(content);
-    // const content = createHome(req.todo.getUserDetails());
   }
   return res.redirect('/login.html');
 };
