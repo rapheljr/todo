@@ -6,8 +6,9 @@ const main = () => {
   const config = {
     path: 'public',
     db: './db/todo.json',
-    session: JSON.parse(key)
-  }
+    session: JSON.parse(key),
+    env: 'production'
+  };
   const app = createApp(config);
   const PORT = 80;
   app.listen(PORT, () => console.log('App started listening', PORT))

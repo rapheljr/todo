@@ -7,3 +7,4 @@
 - [ ] Home page
 
 **DONE**
+- [x] Redirect to login page, if there's no cookie
