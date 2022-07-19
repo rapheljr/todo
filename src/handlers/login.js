@@ -13,11 +13,11 @@ const createSession = (req, sessions) => {
 const loginHandler = (req, res, next) => {
   const { username } = req.body;
   const { password } = req.body;
-  if (req.todo.addUser(username.toLowerCase(), password)) {
+  if (req.todo.verifyUser(username.toLowerCase(), password)) {
     createSession(req, {});
     return res.redirect('/home');
   }
   return res.end('Invalid username or password!');
 };
 
-module.exports = { loginHandler };
+module.exports = { loginHandler, createSession };

@@ -11,6 +11,17 @@ const config = {
   env: 'development'
 };
 
+const content = {
+  users: [{
+    id: 1, name: 'name', username: 'user', password: 'pass'
+  }],
+  lists: [{
+    id: 1, title: 'retail', username: 'user', items: ['buy', 'sell']
+  }]
+};
+
+fs.writeFileSync(config.db, JSON.stringify(content));
+
 describe('todo', () => {
 
   describe('GET /', () => {
@@ -42,6 +53,30 @@ describe('todo', () => {
         .get('/register.html')
         .expect(/Register todo/)
         .expect(200, done)
+    });
+
+  });
+
+  describe('POST /register', () => {
+
+    it('should redirect to home page', (done) => {
+      request(createApp(config))
+        .post('/register')
+        .send('name=a&username=b&password=c')
+        .expect('location', '/home')
+        .expect(302, done)
+    });
+
+  });
+
+  describe('POST /login', () => {
+
+    it('should redirect to home page', (done) => {
+      request(createApp(config))
+        .post('/login')
+        .send('username=user&password=pass')
+        .expect('location', '/home')
+        .expect(302, done)
     });
 
   });

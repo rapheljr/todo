@@ -5,6 +5,7 @@ const cookieSession = require('cookie-session');
 
 const { homeHandler } = require('./handlers/home.js');
 const { loginHandler } = require('./handlers/login.js');
+const { registerHandler } = require('./handlers/register.js');
 const { injectDB } = require('./middlewares/injectDB.js');
 
 const createApp = (config) => {
@@ -25,6 +26,7 @@ const createApp = (config) => {
 
   app.get('/', homeHandler);
   app.post('/login', loginHandler);
+  app.post('/register', registerHandler(db));
 
   app.use(express.static(path));
 

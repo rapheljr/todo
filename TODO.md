@@ -2,11 +2,16 @@
 
 - [ ] Refer README.md
 - [ ] Look up todo frequently
-- [ ] User registration 
-- [ ] User login
 - [ ] Home page
+- [ ] Home page list
+- [ ] Home page add list
+- [ ] Home page delete list
+- [ ] Home page add item
+- [ ] Home page delete item
 
 **DONE**
+- [x] User registration 
+- [x] User login
 - [x] TODO entity
 - [x] User registration page
 - [x] User login page
