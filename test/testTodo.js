@@ -24,5 +24,27 @@ describe('todo', () => {
 
   });
 
+  describe('GET /login.html', () => {
+
+    it('should open to login page', (done) => {
+      request(createApp(config))
+        .get('/login.html')
+        .expect(/Login todo/)
+        .expect(200, done)
+    });
+
+  });
+
+  describe('GET /register.html', () => {
+
+    it('should open to register page', (done) => {
+      request(createApp(config))
+        .get('/register.html')
+        .expect(/Register todo/)
+        .expect(200, done)
+    });
+
+  });
+
 });
 
