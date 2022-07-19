@@ -57,6 +57,17 @@ describe('todo', () => {
 
   });
 
+  describe('GET /something', () => {
+
+    it('should redirect to 404 page', (done) => {
+      request(createApp(config))
+        .get('/something')
+        .expect('location', '/404.html')
+        .expect(302, done)
+    });
+
+  });
+
   describe('POST /register', () => {
 
     it('should redirect to home page', (done) => {

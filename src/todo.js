@@ -3,7 +3,7 @@ const morgan = require('morgan');
 const cookieParser = require('cookie-parser');
 const cookieSession = require('cookie-session');
 
-const { homeHandler } = require('./handlers/home.js');
+const { homeHandler, handle404 } = require('./handlers/home.js');
 const { loginHandler } = require('./handlers/login.js');
 const { registerHandler } = require('./handlers/register.js');
 const { injectDB } = require('./middlewares/injectDB.js');
@@ -29,6 +29,7 @@ const createApp = (config) => {
   app.post('/register', registerHandler(db));
 
   app.use(express.static(path));
+  app.use(handle404);
 
   return app;
 };

@@ -7,6 +7,8 @@ const hardCode = {
   }]
 };
 
+const handle404 = (req, res) => res.redirect('/404.html');
+
 const homeHandler = (req, res, next) => {
   if (req.session.id) {
     // const content = createHome(hardCode);
@@ -16,4 +18,4 @@ const homeHandler = (req, res, next) => {
   return res.redirect('/login.html');
 };
 
-module.exports = { homeHandler };
+module.exports = { homeHandler, handle404 };
