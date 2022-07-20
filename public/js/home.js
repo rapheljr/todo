@@ -68,12 +68,19 @@ const onload = (XHR) => {
   window.location.reload();
 };
 
+const appendList = (XHR) => {
+  const lists = document.getElementById('lists');
+  const appendElement = createLists(JSON.parse(XHR.response));
+  lists.innerHTML += appendElement;
+  main();
+};
+
 const addList = () => {
   const title = document.getElementById('title');
   const body = `title=${title.value}`;
   if (title.value) {
     title.value = '';
-    post('/add-list', body, onload);
+    post('/add-list', body, appendList);
   }
 };
 
@@ -105,5 +112,30 @@ const deleteList = (element) => {
   const body = `id=${id}`;
   deleteMethod('/delete-list', body, onload);
 };
+
+const check = (item) => item.done ? 'checked' : '';
+
+const createItems = (items) => items.map(item =>
+  `<div class="item">
+          <div class="name">${item.name}</div>
+          <input class="checkbox" type="checkbox" ${check(item)} name="mark" id="${item.id}">
+          <div class="delete-item" id="${item.id}">Delete</div>
+        </div>`).join('\n');
+
+const createLists = (lists) => lists.map(list =>
+  `<div type="button" class="collapsible">
+        <div class="title">${list.title}</div>
+        <div class="delete-list" id="${list.id}">Delete</div>
+      </div>
+      <div class="content">
+
+        ${createItems(list.items)}
+
+        <div class="adding">
+          <input type="text" id="text-${list.id}"placeholder="type item name..." required>
+          <div></div>
+          <div class="add-item" id="${list.id}">Add item</div>
+        </div>
+      </div>`).join('\n');
 
 window.onload = main;

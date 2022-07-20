@@ -20,11 +20,12 @@ const createHome = (details) => `<!DOCTYPE html>
       <h2>${details.name}</h2>
     </header>
     <main>
-
+      <div id="lists">
       <h2>Lists</h2>
 
       ${createLists(details.lists)}
-
+      
+      </div>
       <h2>Add</h2>
       <div class="adding">
         <input type="text" id="title" placeholder="type list..." required>

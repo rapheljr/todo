@@ -84,6 +84,12 @@ class TODO {
     return details;
   };
 
+  getLastList() {
+    const lists = this.getUserDetails().lists;
+    const lastIndex = lists.length - 1;
+    return [lists[lastIndex]];
+  }
+
   addList(title) {
     const list = {
       id: this.getNewListId(), username: this.#username, title,
