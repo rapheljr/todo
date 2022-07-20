@@ -1,6 +1,8 @@
 const fs = require('fs');
 
 const setUp = () => {
+  const key = { name: 'session', keys: [''] };
+
   const content = {
     users: [{
       id: 1, name: 'name', username: 'user', password: 'pass'
@@ -12,6 +14,7 @@ const setUp = () => {
   };
 
   fs.writeFileSync('./db/hello.json', JSON.stringify(content));
+  fs.writeFileSync('./db/keys.json', JSON.stringify(key));
 
 };
 
