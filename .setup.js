@@ -11,7 +11,7 @@ const setUp = () => {
     items: [{ id: 1, name: 'buy', list: 1, done: false, deleted: false }, { id: 2, name: 'sell', list: 1, done: false, deleted: false }]
   };
 
-  fs.writeFileSync('./joy/hello.json', JSON.stringify(content));
+  fs.writeFileSync('./db/hello.json', JSON.stringify(content));
 
 };
 
