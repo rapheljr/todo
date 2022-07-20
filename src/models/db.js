@@ -69,7 +69,7 @@ class TODO {
       list.username === this.#username);
     lists.forEach(list => {
       const items = this.#content.items.filter((item) =>
-        list.id === item.list);
+        list.id === item.list && item.deleted === false);
       list.items = items;
     })
     return lists;
@@ -101,6 +101,11 @@ class TODO {
   markItem(id) {
     const item = this.#content.items.find(item => item.id === id);
     item.done = item.done ? false : true;
+  }
+
+  deleteItem(id) {
+    const item = this.#content.items.find(item => item.id === id);
+    item.deleted = true;
   }
 }
 

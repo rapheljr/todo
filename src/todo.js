@@ -10,6 +10,7 @@ const { injectDB } = require('./middlewares/injectDB.js');
 const { addList } = require('./handlers/addList.js');
 const { addItem } = require('./handlers/addItem.js');
 const { markItem } = require('./handlers/markItem.js');
+const { deleteItem } = require('./handlers/deleteItem.js');
 
 const createApp = (config) => {
   const { path, session, db, env } = config;
@@ -31,6 +32,7 @@ const createApp = (config) => {
   app.post('/add-list', addList(db));
   app.post('/add-item', addItem(db));
   app.post('/mark-item', markItem(db));
+  app.delete('/delete-item', deleteItem(db));
   app.post('/login', loginHandler);
   app.post('/register', registerHandler(db));
 

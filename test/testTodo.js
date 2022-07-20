@@ -23,6 +23,8 @@ const content = {
 
 fs.writeFileSync(config.db, JSON.stringify(content));
 
+const cookie = 'session.sig=oj1giD3wyCfnzHQGTbACLoRIi6A;session=eyJ1c2VybmFtZSI6InVzZXIiLCJ0aW1lIjoiMjAyMi0wNy0yMFQwNDozNjoyOS4zMDdaIiwiaWQiOjE2NTgyOTE3ODkzMDd9';
+
 describe('todo', () => {
 
   describe('GET /', () => {
@@ -98,7 +100,7 @@ describe('todo', () => {
     it('should add list to home page', (done) => {
       request(createApp(config))
         .post('/add-list')
-        .set('Cookie', 'session.sig=oj1giD3wyCfnzHQGTbACLoRIi6A;session=eyJ1c2VybmFtZSI6InVzZXIiLCJ0aW1lIjoiMjAyMi0wNy0yMFQwNDozNjoyOS4zMDdaIiwiaWQiOjE2NTgyOTE3ODkzMDd9')
+        .set('Cookie', cookie)
         .send({ title: 'wedding' })
         .expect(/wedding/)
         .expect(200, done)
@@ -111,7 +113,7 @@ describe('todo', () => {
     it('should add list to home page', (done) => {
       request(createApp(config))
         .post('/add-item')
-        .set('Cookie', 'session.sig=oj1giD3wyCfnzHQGTbACLoRIi6A;session=eyJ1c2VybmFtZSI6InVzZXIiLCJ0aW1lIjoiMjAyMi0wNy0yMFQwNDozNjoyOS4zMDdaIiwiaWQiOjE2NTgyOTE3ODkzMDd9')
+        .set('Cookie', cookie)
         .send({ item: 'invitation', list: 1 })
         .expect(/invitation/)
         .expect(200, done)
@@ -124,9 +126,21 @@ describe('todo', () => {
     it('should mark item in the list', (done) => {
       request(createApp(config))
         .post('/mark-item')
-        .set('Cookie', 'session.sig=oj1giD3wyCfnzHQGTbACLoRIi6A;session=eyJ1c2VybmFtZSI6InVzZXIiLCJ0aW1lIjoiMjAyMi0wNy0yMFQwNDozNjoyOS4zMDdaIiwiaWQiOjE2NTgyOTE3ODkzMDd9')
+        .set('Cookie', cookie)
         .send({ id: 2 })
         .expect(/checked/)
+        .expect(200, done)
+    });
+
+  });
+
+  describe('DELETE /delete-item', () => {
+
+    it('should delete item in the list', (done) => {
+      request(createApp(config))
+        .delete('/delete-item')
+        .set('Cookie', cookie)
+        .send({ id: 2 })
         .expect(200, done)
     });
 

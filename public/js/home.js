@@ -24,9 +24,7 @@ const main = () => {
   const delItems = document.getElementsByClassName('delete-item');
 
   for (const element of delItems) {
-    element.addEventListener('click', function () {
-      console.log(element.id, 'hello');
-    })
+    element.addEventListener('click', () => deleteItem(element))
   };
 
   const addItems = document.getElementsByClassName('add-item');
@@ -68,8 +66,13 @@ const get = (url, cb) => makeXhrRequest(cb, 'GET', url);
 
 const post = (url, body, cb) => makeXhrRequest(cb, 'POST', url, body);
 
+const deleteMethod = (url, body, cb) => makeXhrRequest(cb, 'DELETE', url, body);
+
 const onload = (XHR) => {
-  window.location.reload()
+  // const html = document.getElementById('html');
+  // console.log(XHR.response)
+  // html.innerHTML = XHR.response;
+  window.location.reload();
 };
 
 const addList = () => {
@@ -95,6 +98,13 @@ const markItem = (element) => {
   const id = element.id;
   const body = `id=${id}`;
   post('/mark-item', body, onload);
+};
+
+const deleteItem = (element) => {
+  const id = element.id;
+  console.log('inside delete item', id);
+  const body = `id=${id}`;
+  deleteMethod('/delete-item', body, onload);
 };
 
 window.onload = main;

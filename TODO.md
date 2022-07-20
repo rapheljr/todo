@@ -5,9 +5,9 @@
 - [ ] Home page frontend and handler
 - [ ] Home page list frontend and handler
 - [ ] Home page delete list frontend and handler
-- [ ] Home page delete item frontend and handler
 
 **DONE**
+- [x] Home page delete item frontend and handler
 - [x] Home page done item frontend and handler
 - [x] Home page undone item frontend and handler
 - [x] Home page add item frontend and handler

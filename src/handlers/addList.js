@@ -1,4 +1,4 @@
-const { createHome } = require('../views/home');
+const { createHome } = require('../views/home.js');
 const { write } = require('./register.js');
 
 const addList = (db) =>

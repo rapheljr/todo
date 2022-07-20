@@ -1,13 +1,13 @@
 const { createHome } = require('../views/home.js');
 const { write } = require('./register.js');
 
-const markItem = (db) =>
+const deleteItem = (db) =>
   (req, res, next) => {
     const { id } = req.body;
-    req.todo.markItem(+id);
+    req.todo.deleteItem(+id);
     write(req, db);
     const content = createHome(req.todo.getUserDetails());
     return res.end(content);
   };
 
-module.exports = { markItem };
+module.exports = { deleteItem };

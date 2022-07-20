@@ -1,7 +1,7 @@
-const { createLists } = require('./lists');
+const { createLists } = require('./lists.js');
 
 const createHome = (details) => `<!DOCTYPE html>
-<html lang="en">
+<html id="html" lang="en">
 
 <head>
   <meta charset="UTF-8">
