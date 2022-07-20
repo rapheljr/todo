@@ -14,6 +14,7 @@ const createHome = (details) => `<!DOCTYPE html>
 
 <body>
   <div class="page">
+  <a href="logout">Logout</a>
     <header>
       <h1>Welcome</h1>
       <h2>${details.name}</h2>

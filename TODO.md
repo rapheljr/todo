@@ -5,6 +5,7 @@
 - [ ] Home page frontend and handler
 - [ ] Home page list frontend and handler
 - [ ] Home page delete list frontend and handler
+- [ ] Home page logout handler
 
 **DONE**
 - [x] Home page delete item frontend and handler

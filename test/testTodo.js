@@ -60,6 +60,17 @@ describe('todo', () => {
 
   });
 
+  describe('GET /logout', () => {
+
+    it('should redirect to login page', (done) => {
+      request(createApp(config))
+        .get('/logout')
+        .expect('location', '/login.html')
+        .expect(302, done)
+    });
+
+  });
+
   describe('GET /something', () => {
 
     it('should redirect to 404 page', (done) => {
