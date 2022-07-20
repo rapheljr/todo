@@ -26,8 +26,8 @@ const createHome = (details) => `<!DOCTYPE html>
 
       <h2>Add</h2>
       <div class="adding">
-        <input type="text" placeholder="type list name..." required>
-        <div class="add">Add list</div>
+        <input type="text" id="title" placeholder="type list..." required>
+        <div class="add-item" onclick="addList()">Add list</div>
       </div>
     </main>
 

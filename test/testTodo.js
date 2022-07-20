@@ -16,7 +16,7 @@ const content = {
     id: 1, name: 'name', username: 'user', password: 'pass'
   }],
   lists: [{
-    id: 1, title: 'retail', username: 'user', items: ['buy', 'sell']
+    id: 1, title: 'retail', username: 'user', items: [{ id: 1, name: 'buy', done: true }, { id: 1, name: 'sell', done: false }]
   }]
 };
 
@@ -74,7 +74,7 @@ describe('todo', () => {
       request(createApp(config))
         .post('/register')
         .send('name=a&username=b&password=c')
-        .expect('location', '/home')
+        .expect('location', '/')
         .expect(302, done)
     });
 
@@ -88,6 +88,19 @@ describe('todo', () => {
         .send('username=user&password=pass')
         .expect('location', '/')
         .expect(302, done)
+    });
+
+  });
+
+  describe('POST /add-list', () => {
+
+    it('should add list to home page', (done) => {
+      request(createApp(config))
+        .post('/add-list')
+        .set('Cookie', 'session.sig=oj1giD3wyCfnzHQGTbACLoRIi6A;session=eyJ1c2VybmFtZSI6InVzZXIiLCJ0aW1lIjoiMjAyMi0wNy0yMFQwNDozNjoyOS4zMDdaIiwiaWQiOjE2NTgyOTE3ODkzMDd9')
+        .send({ title: 'invitation' })
+        .expect(/invitation/)
+        .expect(200, done)
     });
 
   });

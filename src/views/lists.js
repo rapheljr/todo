@@ -12,7 +12,7 @@ const createLists = (lists) => lists.map(list =>
         <div class="adding">
           <input type="text" placeholder="type item name..." required>
           <div></div>
-          <div class="add">Add item</div>
+          <div class="add-item">Add item</div>
         </div>
       </div>`).join('\n');
 

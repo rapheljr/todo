@@ -7,6 +7,7 @@ const { homeHandler, handle404 } = require('./handlers/home.js');
 const { loginHandler } = require('./handlers/login.js');
 const { registerHandler } = require('./handlers/register.js');
 const { injectDB } = require('./middlewares/injectDB.js');
+const { addList } = require('./handlers/addList.js');
 
 const createApp = (config) => {
   const { path, session, db, env } = config;
@@ -25,6 +26,7 @@ const createApp = (config) => {
   app.use(injectDB(db));
 
   app.get('/', homeHandler);
+  app.post('/add-list', addList(db));
   app.post('/login', loginHandler);
   app.post('/register', registerHandler(db));
 

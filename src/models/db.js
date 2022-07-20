@@ -12,13 +12,17 @@ class TODO {
     return this.#content.users.map((user) => user.username);
   }
 
-  getNewId() {
+  getNewUserId() {
     return this.#content.users[this.#content.users.length - 1].id + 1;
+  }
+
+  getNewListId() {
+    return this.#content.lists[this.#content.lists.length - 1].id + 1;
   }
 
   #addNewUser(name, username, password) {
     const details = {
-      id: this.getNewId(), name, username, password
+      id: this.getNewUserId(), name, username, password
     };
     this.#content.users.push(details);
     return true;
@@ -64,9 +68,17 @@ class TODO {
   getUserDetails() {
     const { id, name, username } = this.getDetailsFrom();
     const lists = this.getListsFrom();
-    return {
+    const details = {
       id, name, username, lists
     };
+    return details;
+  };
+
+  addList(title) {
+    const list = {
+      id: this.getNewListId(), username: this.#username, title, done: false, deleted: false, items: []
+    }
+    this.#content.lists.push(list);
   };
 }
 

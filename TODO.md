@@ -2,15 +2,15 @@
 
 - [ ] Refer README.md
 - [ ] Look up todo frequently
-- [ ] 404 page and handler
 - [ ] Home page frontend and handler
 - [ ] Home page list frontend and handler
-- [ ] Home page add list frontend and handler
 - [ ] Home page delete list frontend and handler
 - [ ] Home page add item frontend and handler
 - [ ] Home page delete item frontend and handler
 
 **DONE**
+- [x] 404 page and handler
+- [x] Home page add list frontend and handler
 - [x] Home page
 - [x] Home page list
 - [x] Home page add list

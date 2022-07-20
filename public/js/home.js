@@ -20,6 +20,61 @@ const main = () => {
       console.log(element.id, 'hello');
     })
   };
+
+  const delItems = document.getElementsByClassName('delete-item');
+
+  for (const element of delItems) {
+    element.addEventListener('click', function () {
+      console.log(element.id, 'hello');
+    })
+  };
+
+  const addItems = document.getElementsByClassName('add-item');
+
+  for (const element of addItems) {
+    element.addEventListener('click', function () {
+      console.log(element.id, 'hello');
+    })
+  };
+};
+
+const parseFormData = (formData) => {
+  const parsedForm = [];
+  for (const [field, value] of formData) {
+    const paramString = field + '=' + value;
+    parsedForm.push(paramString);
+  }
+  return parsedForm;
+};
+
+const makeXhrRequest = (cb, method, path, body = '') => {
+  const XHR = new XMLHttpRequest();
+  XHR.onload = () => {
+    if (XHR.status == 200) {
+      return cb(XHR);
+    }
+    console.log('Error in fetching', method, path);
+  }
+  XHR.open(method, path);
+  XHR.setRequestHeader('content-type', 'application/x-www-form-urlencoded');
+  XHR.send(body);
+};
+
+const get = (url, cb) => makeXhrRequest(cb, 'GET', url);
+
+const post = (url, body, cb) => makeXhrRequest(cb, 'POST', url, body);
+
+const onload = (XHR) => {
+  window.location.reload()
+};
+
+const addList = () => {
+  const title = document.getElementById('title');
+  const body = `title=${title.value}`;
+  if (title.value) {
+    title.value = '';
+    post('/add-list', body, onload);
+  }
 };
 
 window.onload = main;
