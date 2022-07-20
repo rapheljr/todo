@@ -139,7 +139,7 @@ describe('todo', () => {
         .post('/mark-item')
         .set('Cookie', cookie)
         .send({ id: 2 })
-        .expect(/checked/)
+        .expect(/done/)
         .expect(200, done)
     });
 

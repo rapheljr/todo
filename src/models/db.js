@@ -90,6 +90,13 @@ class TODO {
     return [lists[lastIndex]];
   }
 
+  getLastItem(id) {
+    const lists = this.getUserDetails().lists;
+    const theList = lists.find(list => list.id === id);
+    const lastIndex = theList.items.length - 1;
+    return [theList.items[lastIndex]];
+  }
+
   addList(title) {
     const list = {
       id: this.getNewListId(), username: this.#username, title,

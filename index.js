@@ -10,7 +10,7 @@ const main = () => {
     env: 'production'
   };
   const app = createApp(config);
-  const PORT = 80;
+  const PORT = 8000;
   app.listen(PORT, () => console.log('App started listening', PORT))
 };
 

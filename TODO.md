@@ -3,6 +3,8 @@
 - [ ] Refer README.md
 - [ ] Look up todo frequently
 - [ ] Change window reload to generate html
+- [ ] Add .evn
+- [ ] Separate entities form todo(lists, users and items)
 
 **DONE**
 - [x] Home page frontend and handler

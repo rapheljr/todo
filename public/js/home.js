@@ -1,6 +1,6 @@
-const main = () => {
-  const coll = document.getElementsByClassName('collapsible');
-  for (const element of coll) {
+const listen = (id) => {
+  const lists = document.getElementsByClassName('collapsible');
+  for (const element of lists) {
     element.addEventListener('click', function () {
       this.classList.toggle('active');
       const content = this.nextElementSibling;
@@ -12,25 +12,10 @@ const main = () => {
     });
   }
 
-  const delLists = document.getElementsByClassName('delete-list');
-  for (const element of delLists) {
-    element.addEventListener('click', () => deleteList(element));
-  };
+};
 
-  const delItems = document.getElementsByClassName('delete-item');
-  for (const element of delItems) {
-    element.addEventListener('click', () => deleteItem(element));
-  };
+const collapse = function (id) {
 
-  const addItems = document.getElementsByClassName('add-item');
-  for (const element of addItems) {
-    element.addEventListener('click', () => addItem(element));
-  };
-
-  const markItems = document.getElementsByClassName('checkbox');
-  for (const element of markItems) {
-    element.addEventListener('click', () => markItem(element));
-  };
 };
 
 const parseFormData = (formData) => {
@@ -72,8 +57,17 @@ const appendList = (XHR) => {
   const lists = document.getElementById('lists');
   const appendElement = createLists(JSON.parse(XHR.response));
   lists.innerHTML += appendElement;
-  main();
+  listen();
 };
+
+const appendItem = (id) =>
+  (XHR) => {
+    const items = document.getElementById(`list-${id}-items`);
+    const appendElement = createItems(JSON.parse(XHR.response));
+    items.innerHTML += appendElement;
+    listen();
+    listen();
+  };
 
 const addList = () => {
   const title = document.getElementById('title');
@@ -84,31 +78,28 @@ const addList = () => {
   }
 };
 
-const addItem = (element) => {
-  const id = element.id;
+const addItem = (id) => {
   const text = document.getElementById('text-' + id);
-  const body = `item=${text.value}&list=${id}`;
-  if (text.value) {
-    text.value = '';
-    post('/add-item', body, onload);
+  if (text) {
+    if (text.value) {
+      const body = `item=${text.value}&list=${id}`;
+      text.value = '';
+      post('/add-item', body, appendItem(id));
+    }
   }
 };
 
-const markItem = (element) => {
-  const id = element.id;
+const markItem = (id) => {
   const body = `id=${id}`;
-  post('/mark-item', body, onload);
+  post('/mark-item', body, () => { });
 };
 
-const deleteItem = (element) => {
-  const id = element.id;
+const deleteItem = (id) => {
   const body = `id=${id}`;
   deleteMethod('/delete-item', body, onload);
 };
 
-const deleteList = (element) => {
-  const id = element.id;
-  console.log('inside delete list', id);
+const deleteList = (id) => {
   const body = `id=${id}`;
   deleteMethod('/delete-list', body, onload);
 };
@@ -117,25 +108,29 @@ const check = (item) => item.done ? 'checked' : '';
 
 const createItems = (items) => items.map(item =>
   `<div class="item">
-          <div class="name">${item.name}</div>
-          <input class="checkbox" type="checkbox" ${check(item)} name="mark" id="${item.id}">
-          <div class="delete-item" id="${item.id}">Delete</div>
-        </div>`).join('\n');
+                <div class="name">${item.name}</div>
+                <input class="checkbox" ${check(item)} onclick="markItem(${item.id})" type="checkbox" name="mark" id="${item.id}">
+                <div class="delete-item" onclick="deleteItem(${item.id})" id="delete">Delete</div>
+              </div>`).join('\n');
 
 const createLists = (lists) => lists.map(list =>
-  `<div type="button" class="collapsible">
-        <div class="title">${list.title}</div>
-        <div class="delete-list" id="${list.id}">Delete</div>
-      </div>
-      <div class="content">
+  `<div id="list-${list.id}">
+          <div onclick="collapse('list-btn-${list.id}')" class="collapsible">
+            <div class="title">${list.title}</div>
+            <div class="delete-list" onclick="deleteList(${list.id})" id="${list.id}">Delete</div>
+          </div>
+          <div class="content">
+            <div id="list-${list.id}-items">
+              
+          ${createItems(list.items)}
 
-        ${createItems(list.items)}
+            </div>
+            <div class="adding">
+              <input type="text" id='text-${list.id}' placeholder="type item..." required>
+              <div></div>
+              <div class="add-item" onclick="addItem(${list.id})" id="list-1">Add item</div>
+            </div>
+          </div>
+        </div>`).join('\n');
 
-        <div class="adding">
-          <input type="text" id="text-${list.id}"placeholder="type item name..." required>
-          <div></div>
-          <div class="add-item" id="${list.id}">Add item</div>
-        </div>
-      </div>`).join('\n');
-
-window.onload = main;
+window.onload = listen;

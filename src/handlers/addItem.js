@@ -1,4 +1,3 @@
-const { createHome } = require('../views/home.js');
 const { write } = require('./register.js');
 
 const addItem = (db) =>
@@ -7,8 +6,7 @@ const addItem = (db) =>
     const { item } = req.body;
     req.todo.addItem(item, +list);
     write(req, db);
-    const content = createHome(req.todo.getUserDetails());
-    return res.end(content);
+    return res.json(req.todo.getLastItem(+list));
   };
 
 module.exports = { addItem };
