@@ -13,30 +13,23 @@ const main = () => {
   }
 
   const delLists = document.getElementsByClassName('delete-list');
-
   for (const element of delLists) {
-    element.addEventListener('click', function () {
-      console.log(element, 'hello');
-      console.log(element.id, 'hello');
-    })
+    element.addEventListener('click', () => deleteList(element));
   };
 
   const delItems = document.getElementsByClassName('delete-item');
-
   for (const element of delItems) {
-    element.addEventListener('click', () => deleteItem(element))
+    element.addEventListener('click', () => deleteItem(element));
   };
 
   const addItems = document.getElementsByClassName('add-item');
-
   for (const element of addItems) {
-    element.addEventListener('click', () => addItem(element))
+    element.addEventListener('click', () => addItem(element));
   };
 
   const markItems = document.getElementsByClassName('checkbox');
-
   for (const element of markItems) {
-    element.addEventListener('click', () => markItem(element))
+    element.addEventListener('click', () => markItem(element));
   };
 };
 
@@ -102,9 +95,15 @@ const markItem = (element) => {
 
 const deleteItem = (element) => {
   const id = element.id;
-  console.log('inside delete item', id);
   const body = `id=${id}`;
   deleteMethod('/delete-item', body, onload);
+};
+
+const deleteList = (element) => {
+  const id = element.id;
+  console.log('inside delete list', id);
+  const body = `id=${id}`;
+  deleteMethod('/delete-list', body, onload);
 };
 
 window.onload = main;

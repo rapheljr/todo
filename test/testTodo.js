@@ -157,5 +157,17 @@ describe('todo', () => {
 
   });
 
+  describe('DELETE /delete-list', () => {
+
+    it('should delete list in the page', (done) => {
+      request(createApp(config))
+        .delete('/delete-list')
+        .set('Cookie', cookie)
+        .send({ id: 1 })
+        .expect(200, done)
+    });
+
+  });
+
 });
 

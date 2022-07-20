@@ -2,12 +2,13 @@
 
 - [ ] Refer README.md
 - [ ] Look up todo frequently
-- [ ] Home page frontend and handler
-- [ ] Home page list frontend and handler
-- [ ] Home page delete list frontend and handler
-- [ ] Home page logout handler
+- [ ] Change window reload to generate html
 
 **DONE**
+- [x] Home page frontend and handler
+- [x] Home page list frontend and handler
+- [x] Home page delete list frontend and handler
+- [x] Home page logout handler
 - [x] Home page delete item frontend and handler
 - [x] Home page done item frontend and handler
 - [x] Home page undone item frontend and handler
