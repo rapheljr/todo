@@ -16,8 +16,9 @@ const content = {
     id: 1, name: 'name', username: 'user', password: 'pass'
   }],
   lists: [{
-    id: 1, title: 'retail', username: 'user', items: [{ id: 1, name: 'buy', done: true }, { id: 1, name: 'sell', done: false }]
-  }]
+    id: 1, title: 'retail', username: 'user', deleted: false, done: true
+  }],
+  items: [{ id: 1, name: 'buy', list: 1, done: true, deleted: false }, { id: 1, name: 'sell', list: 1, done: false, deleted: false }]
 };
 
 fs.writeFileSync(config.db, JSON.stringify(content));
@@ -98,7 +99,20 @@ describe('todo', () => {
       request(createApp(config))
         .post('/add-list')
         .set('Cookie', 'session.sig=oj1giD3wyCfnzHQGTbACLoRIi6A;session=eyJ1c2VybmFtZSI6InVzZXIiLCJ0aW1lIjoiMjAyMi0wNy0yMFQwNDozNjoyOS4zMDdaIiwiaWQiOjE2NTgyOTE3ODkzMDd9')
-        .send({ title: 'invitation' })
+        .send({ title: 'wedding' })
+        .expect(/wedding/)
+        .expect(200, done)
+    });
+
+  });
+
+  describe('POST /add-item', () => {
+
+    it('should add list to home page', (done) => {
+      request(createApp(config))
+        .post('/add-item')
+        .set('Cookie', 'session.sig=oj1giD3wyCfnzHQGTbACLoRIi6A;session=eyJ1c2VybmFtZSI6InVzZXIiLCJ0aW1lIjoiMjAyMi0wNy0yMFQwNDozNjoyOS4zMDdaIiwiaWQiOjE2NTgyOTE3ODkzMDd9')
+        .send({ item: 'invitation', list: 1 })
         .expect(/invitation/)
         .expect(200, done)
     });

@@ -5,10 +5,10 @@
 - [ ] Home page frontend and handler
 - [ ] Home page list frontend and handler
 - [ ] Home page delete list frontend and handler
-- [ ] Home page add item frontend and handler
 - [ ] Home page delete item frontend and handler
 
 **DONE**
+- [x] Home page add item frontend and handler
 - [x] 404 page and handler
 - [x] Home page add list frontend and handler
 - [x] Home page

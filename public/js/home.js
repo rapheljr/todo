@@ -32,9 +32,7 @@ const main = () => {
   const addItems = document.getElementsByClassName('add-item');
 
   for (const element of addItems) {
-    element.addEventListener('click', function () {
-      console.log(element.id, 'hello');
-    })
+    element.addEventListener('click', () => addItem(element))
   };
 };
 
@@ -74,6 +72,18 @@ const addList = () => {
   if (title.value) {
     title.value = '';
     post('/add-list', body, onload);
+  }
+};
+
+const addItem = (element) => {
+  const id = element.id;
+  console.log('inside addItem', id)
+
+  const text = document.getElementById('text-' + id);
+  const body = `item=${text.value}&list=${id}`;
+  if (text.value) {
+    text.value = '';
+    post('/add-item', body, onload);
   }
 };
 

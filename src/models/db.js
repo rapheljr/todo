@@ -20,6 +20,10 @@ class TODO {
     return this.#content.lists[this.#content.lists.length - 1].id + 1;
   }
 
+  getNewItemId() {
+    return this.#content.items[this.#content.items.length - 1].id + 1;
+  }
+
   #addNewUser(name, username, password) {
     const details = {
       id: this.getNewUserId(), name, username, password
@@ -61,8 +65,14 @@ class TODO {
   }
 
   getListsFrom() {
-    return this.#content.lists.filter((list) =>
+    const lists = this.#content.lists.filter((list) =>
       list.username === this.#username);
+    lists.forEach(list => {
+      const items = this.#content.items.filter((item) =>
+        list.id === item.list);
+      list.items = items;
+    })
+    return lists;
   }
 
   getUserDetails() {
@@ -76,9 +86,16 @@ class TODO {
 
   addList(title) {
     const list = {
-      id: this.getNewListId(), username: this.#username, title, done: false, deleted: false, items: []
+      id: this.getNewListId(), username: this.#username, title, done: false, deleted: false
     }
     this.#content.lists.push(list);
+  };
+
+  addItem(name, list) {
+    const item = {
+      id: this.getNewItemId(), name, list, done: false, deleted: false
+    }
+    this.#content.items.push(item);
   };
 }
 

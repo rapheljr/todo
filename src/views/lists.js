@@ -10,9 +10,9 @@ const createLists = (lists) => lists.map(list =>
         ${createItems(list.items)}
 
         <div class="adding">
-          <input type="text" placeholder="type item name..." required>
+          <input type="text" id="text-${list.id}"placeholder="type item name..." required>
           <div></div>
-          <div class="add-item">Add item</div>
+          <div class="add-item" id="${list.id}">Add item</div>
         </div>
       </div>`).join('\n');
 
