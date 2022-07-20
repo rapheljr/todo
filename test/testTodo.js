@@ -18,7 +18,7 @@ const content = {
   lists: [{
     id: 1, title: 'retail', username: 'user', deleted: false, done: true
   }],
-  items: [{ id: 1, name: 'buy', list: 1, done: true, deleted: false }, { id: 1, name: 'sell', list: 1, done: false, deleted: false }]
+  items: [{ id: 1, name: 'buy', list: 1, done: false, deleted: false }, { id: 2, name: 'sell', list: 1, done: false, deleted: false }]
 };
 
 fs.writeFileSync(config.db, JSON.stringify(content));
@@ -114,6 +114,19 @@ describe('todo', () => {
         .set('Cookie', 'session.sig=oj1giD3wyCfnzHQGTbACLoRIi6A;session=eyJ1c2VybmFtZSI6InVzZXIiLCJ0aW1lIjoiMjAyMi0wNy0yMFQwNDozNjoyOS4zMDdaIiwiaWQiOjE2NTgyOTE3ODkzMDd9')
         .send({ item: 'invitation', list: 1 })
         .expect(/invitation/)
+        .expect(200, done)
+    });
+
+  });
+
+  describe('POST /mark-item', () => {
+
+    it('should mark item in the list', (done) => {
+      request(createApp(config))
+        .post('/mark-item')
+        .set('Cookie', 'session.sig=oj1giD3wyCfnzHQGTbACLoRIi6A;session=eyJ1c2VybmFtZSI6InVzZXIiLCJ0aW1lIjoiMjAyMi0wNy0yMFQwNDozNjoyOS4zMDdaIiwiaWQiOjE2NTgyOTE3ODkzMDd9')
+        .send({ id: 2 })
+        .expect(/checked/)
         .expect(200, done)
     });
 

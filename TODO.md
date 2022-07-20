@@ -8,6 +8,8 @@
 - [ ] Home page delete item frontend and handler
 
 **DONE**
+- [x] Home page done item frontend and handler
+- [x] Home page undone item frontend and handler
 - [x] Home page add item frontend and handler
 - [x] 404 page and handler
 - [x] Home page add list frontend and handler

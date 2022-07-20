@@ -34,6 +34,12 @@ const main = () => {
   for (const element of addItems) {
     element.addEventListener('click', () => addItem(element))
   };
+
+  const markItems = document.getElementsByClassName('checkbox');
+
+  for (const element of markItems) {
+    element.addEventListener('click', () => markItem(element))
+  };
 };
 
 const parseFormData = (formData) => {
@@ -77,14 +83,18 @@ const addList = () => {
 
 const addItem = (element) => {
   const id = element.id;
-  console.log('inside addItem', id)
-
   const text = document.getElementById('text-' + id);
   const body = `item=${text.value}&list=${id}`;
   if (text.value) {
     text.value = '';
     post('/add-item', body, onload);
   }
+};
+
+const markItem = (element) => {
+  const id = element.id;
+  const body = `id=${id}`;
+  post('/mark-item', body, onload);
 };
 
 window.onload = main;

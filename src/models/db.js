@@ -97,6 +97,11 @@ class TODO {
     }
     this.#content.items.push(item);
   };
+
+  markItem(id) {
+    const item = this.#content.items.find(item => item.id === id);
+    item.done = item.done ? false : true;
+  }
 }
 
 module.exports = { TODO };
