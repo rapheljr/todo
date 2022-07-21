@@ -152,7 +152,7 @@ describe('todo', () => {
         .delete('/delete-item')
         .set('Cookie', cookie)
         .send({ id: 2 })
-        .expect(/done/)
+        .expect(/deleted/)
         .expect(200, done)
     });
 
@@ -165,6 +165,7 @@ describe('todo', () => {
         .delete('/delete-list')
         .set('Cookie', cookie)
         .send({ id: 1 })
+        .expect(/deleted/)
         .expect(200, done)
     });
 

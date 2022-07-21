@@ -18,15 +18,6 @@ const collapse = function (id) {
 
 };
 
-const parseFormData = (formData) => {
-  const parsedForm = [];
-  for (const [field, value] of formData) {
-    const paramString = field + '=' + value;
-    parsedForm.push(paramString);
-  }
-  return parsedForm;
-};
-
 const makeXhrRequest = (cb, method, path, body = '') => {
   const XHR = new XMLHttpRequest();
   XHR.onload = () => {
@@ -45,13 +36,6 @@ const get = (url, cb) => makeXhrRequest(cb, 'GET', url);
 const post = (url, body, cb) => makeXhrRequest(cb, 'POST', url, body);
 
 const deleteMethod = (url, body, cb) => makeXhrRequest(cb, 'DELETE', url, body);
-
-const onload = (XHR) => {
-  // const html = document.getElementById('html');
-  // console.log(XHR.response)
-  // html.innerHTML = XHR.response;
-  window.location.reload();
-};
 
 const appendList = (XHR) => {
   const lists = document.getElementById('lists');
@@ -73,6 +57,12 @@ const removeItem = (id) =>
   (XHR) => {
     const item = document.getElementById(`item-${id}`);
     item.remove();
+  };
+
+const removeList = (id) =>
+  (XHR) => {
+    const list = document.getElementById(`list-${id}`);
+    list.remove();
   };
 
 const addList = () => {
@@ -107,7 +97,7 @@ const deleteItem = (id) => {
 
 const deleteList = (id) => {
   const body = `id=${id}`;
-  deleteMethod('/delete-list', body, onload);
+  deleteMethod('/delete-list', body, removeList(id));
 };
 
 const check = (item) => item.done ? 'checked' : '';
