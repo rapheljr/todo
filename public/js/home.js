@@ -25,7 +25,7 @@ const makeXhrRequest = (cb, method, path, body = '') => {
       return cb(XHR);
     }
     console.log('Error in fetching', method, path);
-  }
+  };
   XHR.open(method, path);
   XHR.setRequestHeader('content-type', 'application/x-www-form-urlencoded');
   XHR.send(body);

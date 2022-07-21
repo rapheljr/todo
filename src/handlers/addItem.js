@@ -1,7 +1,7 @@
 const { write } = require('./register.js');
 
 const addItem = (db) =>
-  (req, res, next) => {
+  (req, res) => {
     const { list } = req.body;
     const { item } = req.body;
     req.todo.addItem(item, +list);

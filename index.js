@@ -11,7 +11,7 @@ const main = () => {
   };
   const app = createApp(config);
   const PORT = 8000;
-  app.listen(PORT, () => console.log('App started listening', PORT))
+  app.listen(PORT, () => console.log('App started listening', PORT));
 };
 
 main();

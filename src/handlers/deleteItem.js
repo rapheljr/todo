@@ -1,8 +1,7 @@
-const { createHome } = require('../views/home.js');
 const { write } = require('./register.js');
 
 const deleteItem = (db) =>
-  (req, res, next) => {
+  (req, res) => {
     const { id } = req.body;
     req.todo.deleteItem(+id);
     write(req, db);

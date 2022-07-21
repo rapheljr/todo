@@ -1,5 +1,4 @@
 const fs = require('fs');
-const assert = require('assert');
 const request = require('supertest');
 const { createApp } = require('../src/todo.js');
 
@@ -18,7 +17,9 @@ const content = {
   lists: [{
     id: 1, title: 'retail', username: 'user', deleted: false, done: true
   }],
-  items: [{ id: 1, name: 'buy', list: 1, done: false, deleted: false }, { id: 2, name: 'sell', list: 1, done: false, deleted: false }]
+  items: [
+    { id: 1, name: 'buy', list: 1, done: false, deleted: false },
+    { id: 2, name: 'sell', list: 1, done: false, deleted: false }]
 };
 
 fs.writeFileSync(config.db, JSON.stringify(content));
@@ -33,7 +34,7 @@ describe('todo', () => {
       request(createApp(config))
         .get('/')
         .expect('location', '/login.html')
-        .expect(302, done)
+        .expect(302, done);
     });
 
   });
@@ -44,7 +45,7 @@ describe('todo', () => {
       request(createApp(config))
         .get('/login.html')
         .expect(/Login todo/)
-        .expect(200, done)
+        .expect(200, done);
     });
 
   });
@@ -55,7 +56,7 @@ describe('todo', () => {
       request(createApp(config))
         .get('/register.html')
         .expect(/Register todo/)
-        .expect(200, done)
+        .expect(200, done);
     });
 
   });
@@ -66,7 +67,7 @@ describe('todo', () => {
       request(createApp(config))
         .get('/logout')
         .expect('location', '/login.html')
-        .expect(302, done)
+        .expect(302, done);
     });
 
   });
@@ -77,7 +78,7 @@ describe('todo', () => {
       request(createApp(config))
         .get('/something')
         .expect('location', '/404.html')
-        .expect(302, done)
+        .expect(302, done);
     });
 
   });
@@ -89,7 +90,7 @@ describe('todo', () => {
         .post('/register')
         .send('name=a&username=b&password=c')
         .expect('location', '/')
-        .expect(302, done)
+        .expect(302, done);
     });
 
   });
@@ -101,7 +102,7 @@ describe('todo', () => {
         .post('/login')
         .send('username=user&password=pass')
         .expect('location', '/')
-        .expect(302, done)
+        .expect(302, done);
     });
 
   });
@@ -114,7 +115,7 @@ describe('todo', () => {
         .set('Cookie', cookie)
         .send({ title: 'wedding' })
         .expect(/wedding/)
-        .expect(200, done)
+        .expect(200, done);
     });
 
   });
@@ -127,7 +128,7 @@ describe('todo', () => {
         .set('Cookie', cookie)
         .send({ item: 'invitation', list: 1 })
         .expect(/invitation/)
-        .expect(200, done)
+        .expect(200, done);
     });
 
   });
@@ -140,7 +141,7 @@ describe('todo', () => {
         .set('Cookie', cookie)
         .send({ id: 2 })
         .expect(/done/)
-        .expect(200, done)
+        .expect(200, done);
     });
 
   });
@@ -153,7 +154,7 @@ describe('todo', () => {
         .set('Cookie', cookie)
         .send({ id: 2 })
         .expect(/deleted/)
-        .expect(200, done)
+        .expect(200, done);
     });
 
   });
@@ -166,7 +167,7 @@ describe('todo', () => {
         .set('Cookie', cookie)
         .send({ id: 1 })
         .expect(/deleted/)
-        .expect(200, done)
+        .expect(200, done);
     });
 
   });

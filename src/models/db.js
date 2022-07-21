@@ -1,4 +1,4 @@
-validateUsername = (username) => /^\w{0,}$/.test(username);
+const validateUsername = (username) => /^\w{0,}$/.test(username);
 
 class TODO {
   #content;
@@ -30,7 +30,7 @@ class TODO {
     };
     this.#content.users.push(details);
     return true;
-  };
+  }
 
   #validatePassword(username, password) {
     const user = this.#content.users.filter((user) =>
@@ -47,18 +47,18 @@ class TODO {
       return true;
     }
     return false;
-  };
+  }
 
   verifyUser(username, password) {
     if (validateUsername(username) && username.length > 0) {
       return this.getUsers().includes(username);
     }
     return this.#validatePassword(username, password);
-  };
+  }
 
   getDetails() {
     return this.#content;
-  };
+  }
 
   getDetailsFrom() {
     return this.#content.users.find((user) => user.username === this.#username);
@@ -71,7 +71,7 @@ class TODO {
       const items = this.#content.items.filter((item) =>
         list.id === item.list && item.deleted === false);
       list.items = items;
-    })
+    });
     return lists;
   }
 
@@ -82,7 +82,7 @@ class TODO {
       id, name, username, lists
     };
     return details;
-  };
+  }
 
   getLastList() {
     const lists = this.getUserDetails().lists;
@@ -101,17 +101,17 @@ class TODO {
     const list = {
       id: this.getNewListId(), username: this.#username, title,
       done: false, deleted: false
-    }
+    };
     this.#content.lists.push(list);
-  };
+  }
 
   addItem(name, list) {
     const item = {
       id: this.getNewItemId(), name, list,
       done: false, deleted: false
-    }
+    };
     this.#content.items.push(item);
-  };
+  }
 
   markItem(id) {
     const item = this.#content.items.find(item => item.id === id);

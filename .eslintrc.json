@@ -48,7 +48,7 @@
         "handle-callback-err": "error",
         "id-length": "error",
         "key-spacing": "error",
-        "max-len": "error",
+        "max-len": "off",
         "max-params": [
             "error",
             {
@@ -56,12 +56,12 @@
             }
         ],
         "max-statements": "error",
-        "no-console": "error",
+        "no-console": "off",
         "no-else-return": "error",
         "no-eval": "error",
         "no-implicit-globals": "error",
         "prefer-const": "error",
-        "no-magic-numbers": "error",
+        "no-magic-numbers": "off",
         "no-process-exit": "error",
         "no-process-env": "error",
         "no-return-assign": "error",
@@ -100,7 +100,7 @@
                 "test*.js"
             ],
             "rules": {
-                "max-len": "warn",
+                "max-len": "off",
                 "no-magic-numbers": "off",
                 "max-statements": "off"
             }
