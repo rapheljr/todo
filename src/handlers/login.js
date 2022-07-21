@@ -10,7 +10,7 @@ const createSession = (req, sessions) => {
   return session;
 };
 
-const loginHandler = (req, res, next) => {
+const loginHandler = (req, res) => {
   const { username } = req.body;
   const { password } = req.body;
   if (req.todo.verifyUser(username.toLowerCase(), password)) {

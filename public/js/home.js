@@ -104,29 +104,29 @@ const check = (item) => item.done ? 'checked' : '';
 
 const createItems = (items) => items.map(item =>
   `<div class="item" id="item-${item.id}">
+              <div class="title">
+                <input class="checkbox" ${check(item)} onclick="markItem(${item.id})" type="checkbox" name="mark"
+                  id="${item.id}">
                 <div class="name">${item.name}</div>
-                <input class="checkbox" ${check(item)} onclick="markItem(${item.id})" type="checkbox" name="mark" id="${item.id}">
-                <div class="delete-item" onclick="deleteItem(${item.id})" id="delete">Delete</div>
-              </div>`).join('\n');
+              </div>
+              <div class="delete-item fa-solid fa-trash-can" onclick="deleteItem(${item.id})" id="delete"></div>
+            </div>`).join('\n');
 
 const createLists = (lists) => lists.map(list =>
-  `<div id="list-${list.id}">
-          <div onclick="collapse('list-btn-${list.id}')" class="collapsible">
-            <div class="title">${list.title}</div>
-            <div class="delete-list" onclick="deleteList(${list.id})" id="${list.id}">Delete</div>
+  `<div class="list" id="list-${list.id}">
+        <div onclick="collapse('list-btn-${list.id}')" class="collapsible">
+          <div class="title">${list.title}</div>
+          <div class="delete-list fa-solid fa-trash-can" onclick="deleteList(${list.id})" id="${list.id}"></div>
+        </div>
+        <div class="content" id="content-${list.id}">
+          <div id="list-${list.id}-items">
+            ${createItems(list.items)}
           </div>
-          <div class="content" id="content-${list.id}">
-            <div id="list-${list.id}-items">
-              
-          ${createItems(list.items)}
-
-            </div>
-            <div class="adding">
-              <input type="text" id='text-${list.id}' placeholder="type item..." required>
-              <div></div>
-              <div class="add-item" onclick="addItem(${list.id})" id="list-1">Add item</div>
-            </div>
+          <div class="adding">
+            <input class="text" type="text" id='text-${list.id}' placeholder="Enter item..." required>
+            <div class="add-item fa-solid fa-plus" onclick="addItem(${list.id})" id="list-${list.id}"></div>
           </div>
-        </div>`).join('\n');
+        </div>
+      </div>`).join('\n');
 
 window.onload = listen;

@@ -10,27 +10,32 @@ const createHome = (details) => `<!DOCTYPE html>
   <title>Home ${details.username}</title>
   <link rel="stylesheet" href="css/home.css">
   <script src="js/home.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 
 <body>
   <div class="page">
-  <a href="logout">Logout</a>
-    <header>
+  <header class="head">
+    <div class="welcome">
       <h1>Welcome</h1>
       <h2>${details.name}</h2>
-    </header>
+    </div>
+    <a href="logout">Logout</a>
+  </header>
     <main>
+    <h2>Lists</h2>
       <div id="lists">
-      <h2>Lists</h2>
 
       ${createLists(details.lists)}
       
       </div>
-      <h2>Add</h2>
-      <div class="adding">
-        <input type="text" id="title" placeholder="type list..." required>
-        <div class="add-item" onclick="addList()">Add list</div>
-      </div>
+      <h2>Create</h2>
+    <div class="adding-list">
+      <input class="text" type="text" id="title" placeholder="Enter title..." required>
+      <div class="add-list fa-solid fa-plus" onclick="addList()"></div>
+    </div>
     </main>
 
   </div>

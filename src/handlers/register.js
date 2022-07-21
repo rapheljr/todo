@@ -7,12 +7,11 @@ const write = (req, file) => {
 };
 
 const registerHandler = (db) =>
-  (req, res, next) => {
+  (req, res) => {
     const { name } = req.body;
     const { username } = req.body;
     const { password } = req.body;
-    if (req.todo.addUser(name.toLowerCase(), username.toLowerCase(), password)) {
-      const content = req.todo.getDetails();
+    if (req.todo.addUser(name, username.toLowerCase(), password)) {
       write(req, db);
       createSession(req, {});
       return res.redirect('/');
