@@ -1,12 +1,13 @@
 const fs = require('fs');
 const request = require('supertest');
 const { createApp } = require('../src/todo.js');
+require('dotenv').config();
 
-const key = fs.readFileSync('./db/keys.json', 'utf-8');
+const { path, db, sessionKeys } = process.env;
+
 const config = {
-  path: 'public',
-  db: './db/test.json',
-  session: JSON.parse(key),
+  path, db,
+  session: JSON.parse(sessionKeys),
   env: 'development'
 };
 

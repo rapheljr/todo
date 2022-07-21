@@ -11,7 +11,7 @@ const registerHandler = (db) =>
     const { name } = req.body;
     const { username } = req.body;
     const { password } = req.body;
-    if (req.todo.addUser(name, username.toLowerCase(), password)) {
+    if (req.todo.addUser(name, username, password)) {
       write(req, db);
       createSession(req, {});
       return res.redirect('/');

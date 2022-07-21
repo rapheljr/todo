@@ -10,6 +10,7 @@
     integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg=="
     crossorigin="anonymous" referrerpolicy="no-referrer" />
   <link rel="stylesheet" href="css/login.css">
+  <script src="js/validate.js"></script>
 </head>
 
 <body>
@@ -23,7 +24,7 @@
         </div>
         <div class="input">
           <span class="fa fa-signature" aria-hidden="true"></span>
-          <input type="text" placeholder="Username" name="username" required />
+          <input type="text" id="username" placeholder="Username" name="username" onkeyup="toLowerCase()" required />
         </div>
         <div class="input">
           <span class="fa fa-key" aria-hidden="true"></span>
