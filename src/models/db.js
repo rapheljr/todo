@@ -115,7 +115,7 @@ class TODO {
 
   markItem(id) {
     const item = this.#content.items.find(item => item.id === id);
-    item.done = item.done ? false : true;
+    item.done = !item.done;
   }
 
   deleteItem(id) {

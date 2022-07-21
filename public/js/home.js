@@ -69,6 +69,12 @@ const appendItem = (id) =>
     listen();
   };
 
+const removeItem = (id) =>
+  (XHR) => {
+    const item = document.getElementById(`item-${id}`);
+    item.remove();
+  };
+
 const addList = () => {
   const title = document.getElementById('title');
   const body = `title=${title.value}`;
@@ -96,7 +102,7 @@ const markItem = (id) => {
 
 const deleteItem = (id) => {
   const body = `id=${id}`;
-  deleteMethod('/delete-item', body, onload);
+  deleteMethod('/delete-item', body, removeItem(id));
 };
 
 const deleteList = (id) => {
@@ -107,7 +113,7 @@ const deleteList = (id) => {
 const check = (item) => item.done ? 'checked' : '';
 
 const createItems = (items) => items.map(item =>
-  `<div class="item">
+  `<div class="item" id="item-${item.id}">
                 <div class="name">${item.name}</div>
                 <input class="checkbox" ${check(item)} onclick="markItem(${item.id})" type="checkbox" name="mark" id="${item.id}">
                 <div class="delete-item" onclick="deleteItem(${item.id})" id="delete">Delete</div>
@@ -119,7 +125,7 @@ const createLists = (lists) => lists.map(list =>
             <div class="title">${list.title}</div>
             <div class="delete-list" onclick="deleteList(${list.id})" id="${list.id}">Delete</div>
           </div>
-          <div class="content">
+          <div class="content" id="content-${list.id}">
             <div id="list-${list.id}-items">
               
           ${createItems(list.items)}

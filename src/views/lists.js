@@ -6,7 +6,7 @@ const createLists = (lists) => lists.map(list =>
             <div class="title">${list.title}</div>
             <div class="delete-list" onclick="deleteList(${list.id})" id="${list.id}">Delete</div>
           </div>
-          <div class="content">
+          <div class="content" id="content-${list.id}">
             <div id="list-${list.id}-items">
               
           ${createItems(list.items)}

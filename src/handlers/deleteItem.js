@@ -6,8 +6,7 @@ const deleteItem = (db) =>
     const { id } = req.body;
     req.todo.deleteItem(+id);
     write(req, db);
-    const content = createHome(req.todo.getUserDetails());
-    return res.end(content);
+    return res.json({ done: true });
   };
 
 module.exports = { deleteItem };

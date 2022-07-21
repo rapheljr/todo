@@ -152,6 +152,7 @@ describe('todo', () => {
         .delete('/delete-item')
         .set('Cookie', cookie)
         .send({ id: 2 })
+        .expect(/done/)
         .expect(200, done)
     });
 
