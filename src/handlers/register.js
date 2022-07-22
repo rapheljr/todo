@@ -9,13 +9,12 @@ const write = (req, file) => {
 const registerHandler = (db) =>
   (req, res) => {
     const { name, username, password } = req.body;
-    console.log(req.body);
     if (req.todo.addUser(name, username, password)) {
       write(req, db);
       createSession(req, {});
       return res.redirect('/');
     }
-    return res.end('Invalid username or password!');
+    return res.redirect('/invalidUsername.html');
   };
 
 module.exports = { registerHandler, write };

@@ -43,6 +43,14 @@ describe('todo', () => {
         .expect(302, done);
     });
 
+    it('should show home page if cookie is present', (done) => {
+      request(createApp(config))
+        .get('/')
+        .set('Cookie', cookie)
+        .expect(/Welcome/)
+        .expect(200, done);
+    });
+
   });
 
   describe('GET /login.html', () => {
@@ -99,6 +107,14 @@ describe('todo', () => {
         .expect(302, done);
     });
 
+    it('should redirect to invalid page if username is invalid', (done) => {
+      request(createApp(config))
+        .post('/register')
+        .send('username=user&password=pass')
+        .expect('location', '/invalidUsername.html')
+        .expect(302, done);
+    });
+
   });
 
   describe('POST /login', () => {
@@ -111,12 +127,12 @@ describe('todo', () => {
         .expect(302, done);
     });
 
-    it('should show invalid if credentials is invalid', (done) => {
+    it('should redirect to invalid page if credentials is invalid', (done) => {
       request(createApp(config))
         .post('/login')
         .send('username=use&password=pas')
-        .expect(/Invalid/)
-        .expect(401, done);
+        .expect('location', '/invalidLogin.html')
+        .expect(302, done);
     });
 
   });

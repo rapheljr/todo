@@ -11,14 +11,12 @@ const createSession = (req, sessions) => {
 };
 
 const loginHandler = (req, res) => {
-  const { username } = req.body;
-  const { password } = req.body;
+  const { username, password } = req.body;
   if (req.todo.verifyUser(username, password)) {
     createSession(req, {});
     return res.redirect('/');
   }
-  res.status(401);
-  return res.end('Invalid username or password!');
+  return res.redirect('/invalidLogin.html');
 };
 
 module.exports = { loginHandler, createSession };
