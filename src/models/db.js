@@ -1,20 +1,19 @@
 const { Users } = require('./users.js');
 const { Lists } = require('./lists.js');
+const { Items } = require('./items.js');
 
 class TODO {
   #content;
   #username;
   #users;
   #lists;
+  #items;
   constructor(content, username) {
     this.#content = content;
     this.#username = username;
     this.#users = new Users(content.users);
     this.#lists = new Lists(content.lists);
-  }
-
-  getNewItemId() {
-    return this.#content.items[this.#content.items.length - 1].id + 1;
+    this.#items = new Items(content.items);
   }
 
   addUser(name, username, password) {
@@ -36,8 +35,7 @@ class TODO {
   getListsFrom() {
     const lists = this.#lists.getListsFrom(this.#username);
     lists.forEach(list => {
-      const items = this.#content.items.filter((item) =>
-        list.id === item.list && item.deleted === false);
+      const items = this.#items.getItemsFrom(list);
       list.items = items;
     });
     return lists;
@@ -70,21 +68,15 @@ class TODO {
   }
 
   addItem(name, list) {
-    const item = {
-      id: this.getNewItemId(), name, list,
-      done: false, deleted: false
-    };
-    this.#content.items.push(item);
+    this.#items.addItem(name, list);
   }
 
   markItem(id) {
-    const item = this.#content.items.find(item => item.id === id);
-    item.done = !item.done;
+    this.#items.markItem(id);
   }
 
   deleteItem(id) {
-    const item = this.#content.items.find(item => item.id === id);
-    item.deleted = true;
+    this.#items.deleteItem(id);
   }
 
   deleteList(id) {
