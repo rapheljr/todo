@@ -7,13 +7,14 @@ const errorhandler = require('errorhandler');
 const { homeHandler, handle404 } = require('./handlers/home.js');
 const { loginHandler } = require('./handlers/login.js');
 const { registerHandler } = require('./handlers/register.js');
-const { injectDB } = require('./middlewares/injectDB.js');
+const { injectDB } = require('./middleware/injectDB.js');
 const { addList } = require('./handlers/addList.js');
 const { addItem } = require('./handlers/addItem.js');
 const { markItem } = require('./handlers/markItem.js');
 const { deleteItem } = require('./handlers/deleteItem.js');
 const { logoutHandler } = require('./handlers/logout.js');
 const { deleteList } = require('./handlers/deleteList.js');
+const { serveLogin, serveRegister } = require('./handlers/serve.js');
 
 const createApp = (config) => {
   const { path, session, db, env } = config;
@@ -41,6 +42,8 @@ const createApp = (config) => {
   app.post('/login', loginHandler);
   app.get('/logout', logoutHandler);
   app.post('/register', registerHandler(db));
+  app.get(['/register', '/register.html'], serveRegister);
+  app.get(['/login', '/login.html'], serveLogin);
 
   app.use(express.static(path));
   app.use(handle404);

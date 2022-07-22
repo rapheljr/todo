@@ -59,7 +59,7 @@ const addList = () => {
 const addItem = (id) => {
   const text = document.getElementById('text-' + id);
   if (text) {
-    const value = title.value.trim();
+    const value = text.value.trim();
     if (value) {
       const body = `item=${value}&list=${id}`;
       text.value = '';
