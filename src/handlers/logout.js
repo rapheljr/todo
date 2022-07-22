@@ -1,6 +1,6 @@
 const logoutHandler = (req, res) => {
-  res.cookie('session.sig', '');
-  res.cookie('session', '');
+  res.clearCookie('session.sig');
+  res.clearCookie('session');
   res.redirect('/login.html');
 };
 

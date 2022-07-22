@@ -2,6 +2,7 @@ const express = require('express');
 const morgan = require('morgan');
 const cookieParser = require('cookie-parser');
 const cookieSession = require('cookie-session');
+const errorhandler = require('errorhandler');
 
 const { homeHandler, handle404 } = require('./handlers/home.js');
 const { loginHandler } = require('./handlers/login.js');
@@ -20,6 +21,7 @@ const createApp = (config) => {
   const app = express();
   if (env === 'production') {
     app.use(morgan('tiny'));
+    app.use(errorhandler());
   }
   app.use(express.urlencoded({ extended: true }));
   app.use(express.text());

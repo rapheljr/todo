@@ -48,8 +48,9 @@ const removeList = (id) =>
 
 const addList = () => {
   const title = document.getElementById('title');
-  const body = `title=${title.value}`;
-  if (title.value) {
+  const value = title.value.trim();
+  const body = `title=${value}`;
+  if (value) {
     title.value = '';
     post('/add-list', body, appendList);
   }
@@ -58,8 +59,9 @@ const addList = () => {
 const addItem = (id) => {
   const text = document.getElementById('text-' + id);
   if (text) {
-    if (text.value) {
-      const body = `item=${text.value}&list=${id}`;
+    const value = title.value.trim();
+    if (value) {
+      const body = `item=${value}&list=${id}`;
       text.value = '';
       post('/add-item', body, appendItem(id));
     }
