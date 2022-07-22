@@ -2,11 +2,12 @@
 
 - [ ] Refer README.md
 - [ ] Look up todo frequently
-- [ ] Change window reload to generate html
-- [ ] Add .evn
-- [ ] Separate entities form todo(lists, users and items)
+- [ ] Separate entities from todo(lists and items)
 
 **DONE**
+- [x] Added .env file
+- [x] Separated users entity from todo
+- [x] Change window reload to generate html
 - [x] Home page frontend and handler
 - [x] Home page list frontend and handler
 - [x] Home page delete list frontend and handler

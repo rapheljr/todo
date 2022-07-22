@@ -8,9 +8,8 @@ const write = (req, file) => {
 
 const registerHandler = (db) =>
   (req, res) => {
-    const { name } = req.body;
-    const { username } = req.body;
-    const { password } = req.body;
+    const { name, username, password } = req.body;
+    console.log(req.body);
     if (req.todo.addUser(name, username, password)) {
       write(req, db);
       createSession(req, {});

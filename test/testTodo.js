@@ -6,28 +6,33 @@ require('dotenv').config();
 const { path, db, sessionKeys } = process.env;
 
 const config = {
-  path, db,
+  path, db: './db/test.json',
   session: JSON.parse(sessionKeys),
   env: 'development'
 };
 
-const content = {
-  users: [{
-    id: 1, name: 'name', username: 'user', password: 'pass'
-  }],
-  lists: [{
-    id: 1, title: 'retail', username: 'user', deleted: false, done: true
-  }],
-  items: [
-    { id: 1, name: 'buy', list: 1, done: false, deleted: false },
-    { id: 2, name: 'sell', list: 1, done: false, deleted: false }]
+const setup = () => {
+  const content = {
+    users: [{
+      id: 1, name: 'name', username: 'user', password: 'pass'
+    }],
+    lists: [{
+      id: 1, title: 'retail', username: 'user', deleted: false, done: true
+    }],
+    items: [
+      { id: 1, name: 'buy', list: 1, done: false, deleted: false },
+      { id: 2, name: 'sell', list: 1, done: false, deleted: false }]
+  };
+
+  fs.writeFileSync(config.db, JSON.stringify(content));
 };
 
-fs.writeFileSync(config.db, JSON.stringify(content));
 
 const cookie = 'session.sig=oj1giD3wyCfnzHQGTbACLoRIi6A;session=eyJ1c2VybmFtZSI6InVzZXIiLCJ0aW1lIjoiMjAyMi0wNy0yMFQwNDozNjoyOS4zMDdaIiwiaWQiOjE2NTgyOTE3ODkzMDd9';
 
 describe('todo', () => {
+
+  beforeEach(setup);
 
   describe('GET /', () => {
 
@@ -98,12 +103,20 @@ describe('todo', () => {
 
   describe('POST /login', () => {
 
-    it('should redirect to home page', (done) => {
+    it('should redirect to home page if credentials is valid', (done) => {
       request(createApp(config))
         .post('/login')
         .send('username=user&password=pass')
         .expect('location', '/')
         .expect(302, done);
+    });
+
+    it('should show invalid if credentials is invalid', (done) => {
+      request(createApp(config))
+        .post('/login')
+        .send('username=use&password=pas')
+        .expect(/Invalid/)
+        .expect(401, done);
     });
 
   });
