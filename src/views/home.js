@@ -1,5 +1,3 @@
-const { createLists } = require('./lists.js');
-
 const createHome = (details) => `<!DOCTYPE html>
 <html id="html" lang="en">
 
@@ -29,13 +27,11 @@ const createHome = (details) => `<!DOCTYPE html>
     <main>
     <h2>Lists</h2>
       <div id="lists">
-
-      ${createLists(details.lists)}
       
       </div>
       <h2>Create</h2>
     <div class="adding-list">
-      <input class="text" type="text" id="title" placeholder="Enter title..." required>
+      <input class="text" onkeydown="addListEnter(event)" type="text" id="title" placeholder="Enter title..." required>
       <div class="add-list fa-solid fa-plus" onclick="addList()"></div>
     </div>
     </main>

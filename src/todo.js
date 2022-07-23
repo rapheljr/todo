@@ -15,6 +15,7 @@ const { deleteItem } = require('./handlers/deleteItem.js');
 const { logoutHandler } = require('./handlers/logout.js');
 const { deleteList } = require('./handlers/deleteList.js');
 const { serveLogin, serveRegister } = require('./handlers/serve.js');
+const { lists } = require('./handlers/lists.js');
 
 const createApp = (config) => {
   const { path, session, db, env } = config;
@@ -34,6 +35,7 @@ const createApp = (config) => {
   app.use(injectDB(db));
 
   app.get('/', homeHandler);
+  app.get('/lists', lists);
   app.post('/add-list', addList(db));
   app.post('/add-item', addItem(db));
   app.post('/mark-item', markItem(db));
