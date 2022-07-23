@@ -27,11 +27,9 @@ const appendList = (XHR) => {
 
 const appendItem = (id) =>
   (XHR) => {
-    const items = document.getElementById(`list-${id}-items`);
-    const appendElement = createItems(JSON.parse(XHR.response));
-    items.innerHTML += appendElement;
-    listen();
-    listen();
+    const list = document.getElementById(`list-${id}-items`);
+    const items = createItems(JSON.parse(XHR.response));
+    list.append(...items);
   };
 
 const removeItem = (id) =>
@@ -83,17 +81,23 @@ const deleteList = (id) => {
   deleteMethod('/delete-list', body, removeList(id));
 };
 
+const createItem = (item) => {
+  const dom = [
+    'div', { className: 'item', id: `item-${item.id}` },
+    ['div', { className: 'title' },
+      ['input', { type: 'checkbox', className: 'checkbox', checked: item.done, onclick: () => markItem(item.id) }],
+      ['div', { className: 'name' }, item.name]
+    ],
+    ['div', { className: 'delete-item fa-solid fa-trash-can', onclick: () => deleteItem(item.id), id: 'delete' }
+    ]
+  ]
+
+  return tagOf(...dom);
+};
+
 const check = (item) => item.done ? 'checked' : '';
 
-const createItems = (items) => items.map(item =>
-  `<div class="item" id="item-${item.id}">
-              <div class="title">
-                <input class="checkbox" ${check(item)} onclick="markItem(${item.id})" type="checkbox" name="mark"
-                  id="${item.id}">
-                <div class="name">${item.name}</div>
-              </div>
-              <div class="delete-item fa-solid fa-trash-can" onclick="deleteItem(${item.id})" id="delete"></div>
-            </div>`).join('\n');
+const createItems = (items) => items.map(createItem);
 
 const createLists = (lists) => lists.map(list =>
   `<div class="list" id="list-${list.id}">
