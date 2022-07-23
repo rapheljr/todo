@@ -30,6 +30,11 @@ class Items {
     item.deleted = true;
   }
 
+  editItem(id, name) {
+    const item = this.find(id);
+    item.name = name;
+  }
+
   getItemsFrom(list) {
     return this.#items.filter((item) =>
       list.id === item.list && item.deleted === false);

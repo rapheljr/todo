@@ -86,6 +86,10 @@ class TODO {
   editList(id, title) {
     this.#lists.editList(id, title);
   }
+
+  editItem(id, name) {
+    this.#items.editItem(id, name);
+  }
 }
 
 module.exports = { TODO };

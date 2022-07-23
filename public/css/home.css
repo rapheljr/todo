@@ -57,6 +57,7 @@ body {
   padding: 1em;
   /* width: 222px; */
   flex: 1;
+  outline: none;
 }
 
 .list {

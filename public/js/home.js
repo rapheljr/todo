@@ -44,13 +44,23 @@ const addList = () => {
 };
 
 const editList = (event, id) => {
-  console.log('edit');
   if (isEnter(event)) {
     const title = document.getElementById('title-' + id);
     const value = title.innerText.trim();
     if (value) {
       const body = `title=${value}&id=${id}`;
       post('/edit-list', body, () => { });
+    }
+  }
+};
+
+const editItem = (event, id) => {
+  if (isEnter(event)) {
+    const name = document.getElementById(`item-${id}-name`);
+    const value = name.innerText.trim();
+    if (value) {
+      const body = `item=${value}&id=${id}`;
+      post('/edit-item', body, () => { });
     }
   }
 };
@@ -99,7 +109,7 @@ const createItem = (item) => {
     'div', { className: 'item', id: `item-${item.id}` },
     ['div', { className: 'title' },
       ['input', { type: 'checkbox', className: 'checkbox', checked: item.done, onclick: () => markItem(item.id) }],
-      ['div', { className: 'name' }, item.name]
+      ['div', { id: `item-${item.id}-name`, className: 'name', contentEditable: 'true', onkeydown: (event) => editItem(event, item.id) }, item.name]
     ],
     ['div', { className: 'delete-item fa-solid fa-trash-can', onclick: () => deleteItem(item.id), id: 'delete' }
     ]

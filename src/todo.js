@@ -17,6 +17,7 @@ const { deleteList } = require('./handlers/deleteList.js');
 const { serveLogin, serveRegister } = require('./handlers/serve.js');
 const { lists } = require('./handlers/lists.js');
 const { editList } = require('./handlers/editList.js');
+const { editItem } = require('./handlers/editItem.js');
 
 const createApp = (config) => {
   const { path, session, db, env } = config;
@@ -39,6 +40,7 @@ const createApp = (config) => {
   app.get('/lists', lists);
   app.post('/add-list', addList(db));
   app.post('/edit-list', editList(db));
+  app.post('/edit-item', editItem(db));
   app.post('/add-item', addItem(db));
   app.post('/mark-item', markItem(db));
   app.delete('/delete-item', deleteItem(db));
