@@ -29,7 +29,7 @@ class TODO {
   }
 
   getDetailsFrom() {
-    return this.#users.findUser(this.#username);
+    return this.#users.find(this.#username);
   }
 
   getListsFrom() {
@@ -81,6 +81,10 @@ class TODO {
 
   deleteList(id) {
     this.#lists.deleteList(id);
+  }
+
+  editList(id, title) {
+    this.#lists.editList(id, title);
   }
 }
 

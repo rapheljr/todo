@@ -4,11 +4,8 @@ const reload = () => {
 
 const collapse = (id) => {
   const content = document.getElementById('content-' + id);
-  if (content.style.display === 'block') {
-    content.style.display = 'none';
-  } else {
-    content.style.display = 'block';
-  }
+  const result = content.style.display === 'block';
+  content.style.display = result ? 'none' : 'block';
 };
 
 const appendList = (XHR) => {
@@ -39,10 +36,43 @@ const removeList = (id) =>
 const addList = () => {
   const title = document.getElementById('title');
   const value = title.value.trim();
-  const body = `title=${value}`;
   if (value) {
+    const body = `title=${value}`;
     title.value = '';
     post('/add-list', body, appendList);
+  }
+};
+
+const editList = (event, id) => {
+  console.log('edit');
+  if (isEnter(event)) {
+    const title = document.getElementById('title-' + id);
+    const value = title.innerText.trim();
+    if (value) {
+      const body = `title=${value}&id=${id}`;
+      post('/edit-list', body, () => { });
+    }
+  }
+};
+
+const addListEnter = (event) => {
+  if (isEnter(event)) {
+    addList();
+  }
+};
+
+const deleteList = (id) => {
+  const body = `id=${id}`;
+  deleteMethod('/delete-list', body, removeList(id));
+};
+
+const addItem = (id) => {
+  const text = document.getElementById('text-' + id);
+  const value = text.value.trim();
+  if (value) {
+    const body = `item=${value}&list=${id}`;
+    text.value = '';
+    post('/add-item', body, appendItem(id));
   }
 };
 
@@ -52,38 +82,14 @@ const addItemEnter = (event, id) => {
   }
 };
 
-const addListEnter = (event) => {
-  console.log(event);
-  if (isEnter(event)) {
-    addList();
-  }
-};
-
-const addItem = (id) => {
-  const text = document.getElementById('text-' + id);
-  if (text) {
-    const value = text.value.trim();
-    if (value) {
-      const body = `item=${value}&list=${id}`;
-      text.value = '';
-      post('/add-item', body, appendItem(id));
-    }
-  }
-};
-
-const markItem = (id) => {
-  const body = `id=${id}`;
-  post('/mark-item', body, () => { });
-};
-
 const deleteItem = (id) => {
   const body = `id=${id}`;
   deleteMethod('/delete-item', body, removeItem(id));
 };
 
-const deleteList = (id) => {
+const markItem = (id) => {
   const body = `id=${id}`;
-  deleteMethod('/delete-list', body, removeList(id));
+  post('/mark-item', body, () => { });
 };
 
 const isEnter = (event) => event.key === 'Enter';
@@ -102,13 +108,11 @@ const createItem = (item) => {
   return tagOf(...dom);
 };
 
-const check = (item) => item.done ? 'checked' : '';
-
 const createList = (list) => {
   const dom = [
     'div', { className: 'list', id: `list-${list.id}` },
     ['div', { onclick: () => collapse(list.id), className: 'collapsible' },
-      ['div', { className: 'title' }, list.title],
+      ['div', { id: `title-${list.id}`, className: 'title', contentEditable: 'true', onkeydown: (event) => editList(event, list.id) }, list.title],
       ['div', { className: 'delete-list fa-solid fa-trash-can', onclick: () => deleteList(list.id) }]],
     ['div', { className: 'content', id: `content-${list.id}` },
       ['div', { id: `list-${list.id}-items` }, ...createItems(list.items)],

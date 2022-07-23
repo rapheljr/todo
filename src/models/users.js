@@ -26,9 +26,11 @@ class Users {
   }
 
   #validatePassword(username, password) {
-    const user = this.#users.filter((user) =>
-      user.username === username);
-    return user.password === password;
+    const user = this.find(username);
+    if (user) {
+      return user.password === password;
+    }
+    return false;
   }
 
   addUser(name, username, password) {
@@ -43,13 +45,10 @@ class Users {
   }
 
   verifyUser(username, password) {
-    if (validateUsername(username)) {
-      return this.getUsers().includes(username);
-    }
     return this.#validatePassword(username, password);
   }
 
-  findUser(username) {
+  find(username) {
     return this.#users.find((user) => user.username === username);
   }
 

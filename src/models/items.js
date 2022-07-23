@@ -8,6 +8,10 @@ class Items {
     return this.#items[this.#items.length - 1].id + 1;
   }
 
+  find(id) {
+    return this.#items.find(item => item.id === id);
+  }
+
   addItem(name, list) {
     const item = {
       id: this.getNewItemId(), name, list,
@@ -17,12 +21,12 @@ class Items {
   }
 
   markItem(id) {
-    const item = this.#items.find(item => item.id === id);
+    const item = this.find(id);
     item.done = !item.done;
   }
 
   deleteItem(id) {
-    const item = this.#items.find(item => item.id === id);
+    const item = this.find(id);
     item.deleted = true;
   }
 

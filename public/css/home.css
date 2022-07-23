@@ -71,6 +71,7 @@ main {
   display: flex;
   align-items: center;
   flex: 1;
+  outline: none;
 }
 
 .text {
@@ -78,6 +79,7 @@ main {
   padding: .3em;
   color: black;
   border: 0;
+  outline: none;
 }
 
 .add-item {

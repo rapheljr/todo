@@ -4,6 +4,10 @@ class Lists {
     this.#lists = lists;
   }
 
+  find(id) {
+    return this.#lists.find(list => list.id === id);
+  }
+
   getNewListId() {
     return this.#lists[this.#lists.length - 1].id + 1;
   }
@@ -22,8 +26,13 @@ class Lists {
   }
 
   deleteList(id) {
-    const list = this.#lists.find(list => list.id === id);
+    const list = this.find(id);
     list.deleted = true;
+  }
+
+  editList(id, title) {
+    const list = this.find(id);
+    list.title = title;
   }
 
 }
