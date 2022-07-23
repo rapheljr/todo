@@ -2,6 +2,13 @@ const reload = () => {
   get('/lists', appendList);
 };
 
+const search = () => {
+  const search = document.getElementById('search');
+  const value = search.value;
+  const body = `key=${value}`;
+  post('/search', body, searchList);
+};
+
 const collapse = (id) => {
   const content = document.getElementById('content-' + id);
   const result = content.style.display === 'block';
@@ -12,6 +19,12 @@ const appendList = (XHR) => {
   const lists = document.getElementById('lists');
   const list = createLists(JSON.parse(XHR.response));
   lists.append(...list);
+};
+
+const searchList = (XHR) => {
+  const lists = document.getElementById('lists');
+  const list = createLists(JSON.parse(XHR.response));
+  lists.replaceChildren(...list);
 };
 
 const appendItem = (id) =>

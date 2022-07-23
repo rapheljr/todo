@@ -90,6 +90,11 @@ class TODO {
   editItem(id, name) {
     this.#items.editItem(id, name);
   }
+
+  search(key) {
+    const lists = this.getUserDetails().lists;
+    return lists.filter(list => list.title.includes(key));
+  }
 }
 
 module.exports = { TODO };
