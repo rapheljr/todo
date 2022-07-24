@@ -21,16 +21,18 @@ const appendList = (XHR) => {
   lists.append(...list);
 };
 
+const openList = (id) => {
+  const list = document.getElementById(`title-${id}`);
+  list.click();
+};
+
 const searchList = (XHR) => {
   const lists = document.getElementById('lists');
   const replace = JSON.parse(XHR.response);
-  const open = replace.splice(-1);
+  const [open] = replace.splice(-1);
   const list = createLists(replace);
   lists.replaceChildren(...list);
-  open.forEach(id => {
-    const title = document.getElementById(`title-${id}`);
-    title.click();
-  });
+  open.forEach(openList);
 };
 
 const appendItem = (id) =>
