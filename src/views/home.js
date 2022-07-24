@@ -25,7 +25,7 @@ const createHome = (details) => `<!DOCTYPE html>
     <a href="logout">Logout</a>
   </header>
     <main>
-    <input type="text" onkeydown="search()" placeholder="Search..."  id="search" class="search">
+    <input type="text" onkeyup="search()" placeholder="Search..."  id="search" class="search">
     <h2>Lists</h2>
       <div id="lists">
       

@@ -23,8 +23,14 @@ const appendList = (XHR) => {
 
 const searchList = (XHR) => {
   const lists = document.getElementById('lists');
-  const list = createLists(JSON.parse(XHR.response));
+  const replace = JSON.parse(XHR.response);
+  const open = replace.splice(-1);
+  const list = createLists(replace);
   lists.replaceChildren(...list);
+  open.forEach(id => {
+    const title = document.getElementById(`title-${id}`);
+    title.click();
+  });
 };
 
 const appendItem = (id) =>

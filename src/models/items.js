@@ -12,6 +12,11 @@ class Items {
     return this.#items.find(item => item.id === id);
   }
 
+  search(key) {
+    return this.#items.filter(item =>
+      item.name.toLowerCase().includes(key.toLowerCase()));
+  }
+
   addItem(name, list) {
     const item = {
       id: this.getNewItemId(), name, list,

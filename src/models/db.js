@@ -93,7 +93,21 @@ class TODO {
 
   search(key) {
     const lists = this.getUserDetails().lists;
-    return lists.filter(list => list.title.includes(key));
+    const open = [];
+    const filteredLists = lists.filter(list => {
+      const result = list.title.toLowerCase().includes(key.toLowerCase());
+      if (result) {
+        return true;
+      }
+      list.items = list.items.filter(item =>
+        item.name.toLowerCase().includes(key.toLowerCase()));
+      if (list.items.length > 0) {
+        open.push(list.id);
+        return true;
+      }
+    });
+    filteredLists.push(open);
+    return filteredLists;
   }
 }
 
