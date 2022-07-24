@@ -25,7 +25,12 @@ const createHome = (details) => `<!DOCTYPE html>
     <a href="logout">Logout</a>
   </header>
     <main>
-    <input type="text" onkeyup="search()" placeholder="Search..."  id="search" class="search">
+    <div class="search">
+      <input class="text" type="text" onkeyup="search()" placeholder="Search..." id="search">
+      <label class="container-checkbox">done
+        <input class="checkbox" type="checkbox" onclick="search()" name="status" id="status">
+      </label>
+    </div>
     <h2>Lists</h2>
       <div id="lists">
       

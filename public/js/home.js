@@ -4,8 +4,10 @@ const reload = () => {
 
 const search = () => {
   const search = document.getElementById('search');
+  const status = document.getElementById('status');
+  const stat = status.checked;
   const value = search.value;
-  const body = `key=${value}`;
+  const body = `key=${value}&check=${stat}`;
   post('/search', body, searchList);
 };
 
@@ -22,8 +24,11 @@ const appendList = (XHR) => {
 };
 
 const openList = (id) => {
-  const list = document.getElementById(`title-${id}`);
-  list.click();
+  try {
+    const list = document.getElementById(`title-${id}`);
+    list.click();
+  } catch (error) {
+  }
 };
 
 const searchList = (XHR) => {
