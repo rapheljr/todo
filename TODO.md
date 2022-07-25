@@ -2,9 +2,11 @@
 
 - [ ] Refer README.md
 - [ ] Look up todo frequently
-- [ ] Separate entities from todo(lists and items)
 
 **DONE**
+- [x] Added api router
+- [x] Added setMiddleware function
+- [x] Separate entities from todo(lists and items)
 - [x] Added .env file
 - [x] Separated users entity from todo
 - [x] Change window reload to generate html

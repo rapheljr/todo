@@ -1,5 +1,5 @@
 const reload = () => {
-  get('/lists', appendList);
+  get('/api/lists', appendList);
 };
 
 const search = () => {
@@ -8,7 +8,7 @@ const search = () => {
   const stat = status.checked;
   const value = search.value;
   const body = `key=${value}&check=${stat}`;
-  post('/search', body, searchList);
+  post('/api/search', body, searchList);
 };
 
 const collapse = (id) => {
@@ -65,7 +65,7 @@ const addList = () => {
   if (value) {
     const body = `title=${value}`;
     title.value = '';
-    post('/add-list', body, appendList);
+    post('/api/add-list', body, appendList);
   }
 };
 
@@ -75,7 +75,7 @@ const editList = (event, id) => {
     const value = title.innerText.trim();
     if (value) {
       const body = `title=${value}&id=${id}`;
-      post('/edit-list', body, () => { });
+      post('/api/edit-list', body, () => { });
     }
   }
 };
@@ -86,7 +86,7 @@ const editItem = (event, id) => {
     const value = name.innerText.trim();
     if (value) {
       const body = `item=${value}&id=${id}`;
-      post('/edit-item', body, () => { });
+      post('/api/edit-item', body, () => { });
     }
   }
 };
@@ -99,7 +99,7 @@ const addListEnter = (event) => {
 
 const deleteList = (id) => {
   const body = `id=${id}`;
-  deleteMethod('/delete-list', body, removeList(id));
+  deleteMethod('/api/delete-list', body, removeList(id));
 };
 
 const addItem = (id) => {
@@ -108,7 +108,7 @@ const addItem = (id) => {
   if (value) {
     const body = `item=${value}&list=${id}`;
     text.value = '';
-    post('/add-item', body, appendItem(id));
+    post('/api/add-item', body, appendItem(id));
   }
 };
 
@@ -120,12 +120,12 @@ const addItemEnter = (event, id) => {
 
 const deleteItem = (id) => {
   const body = `id=${id}`;
-  deleteMethod('/delete-item', body, removeItem(id));
+  deleteMethod('/api/delete-item', body, removeItem(id));
 };
 
 const markItem = (id) => {
   const body = `id=${id}`;
-  post('/mark-item', body, () => { });
+  post('/api/mark-item', body, () => { });
 };
 
 const isEnter = (event) => event.key === 'Enter';

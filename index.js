@@ -1,5 +1,4 @@
 const { createApp } = require('./src/todo.js');
-const fs = require('fs');
 require('dotenv').config();
 
 const main = () => {

@@ -3,7 +3,7 @@ const request = require('supertest');
 const { createApp } = require('../src/todo.js');
 require('dotenv').config();
 
-const { path, db, sessionKeys } = process.env;
+const { path, sessionKeys } = process.env;
 
 const config = {
   path, db: './db/test.json',
@@ -26,7 +26,6 @@ const setup = () => {
 
   fs.writeFileSync(config.db, JSON.stringify(content));
 };
-
 
 const cookie = 'session.sig=oj1giD3wyCfnzHQGTbACLoRIi6A;session=eyJ1c2VybmFtZSI6InVzZXIiLCJ0aW1lIjoiMjAyMi0wNy0yMFQwNDozNjoyOS4zMDdaIiwiaWQiOjE2NTgyOTE3ODkzMDd9';
 
@@ -137,11 +136,11 @@ describe('todo', () => {
 
   });
 
-  describe('POST /add-list', () => {
+  describe('POST /api/add-list', () => {
 
     it('should add list to home page', (done) => {
       request(createApp(config))
-        .post('/add-list')
+        .post('/api/add-list')
         .set('Cookie', cookie)
         .send({ title: 'wedding' })
         .expect(/wedding/)
@@ -150,11 +149,11 @@ describe('todo', () => {
 
   });
 
-  describe('POST /add-item', () => {
+  describe('POST /api/add-item', () => {
 
     it('should add list to home page', (done) => {
       request(createApp(config))
-        .post('/add-item')
+        .post('/api/add-item')
         .set('Cookie', cookie)
         .send({ item: 'invitation', list: 1 })
         .expect(/invitation/)
@@ -163,11 +162,11 @@ describe('todo', () => {
 
   });
 
-  describe('POST /mark-item', () => {
+  describe('POST /api/mark-item', () => {
 
     it('should mark item in the list', (done) => {
       request(createApp(config))
-        .post('/mark-item')
+        .post('/api/mark-item')
         .set('Cookie', cookie)
         .send({ id: 2 })
         .expect(/done/)
@@ -176,11 +175,11 @@ describe('todo', () => {
 
   });
 
-  describe('DELETE /delete-item', () => {
+  describe('DELETE /api/delete-item', () => {
 
     it('should delete item in the list', (done) => {
       request(createApp(config))
-        .delete('/delete-item')
+        .delete('/api/delete-item')
         .set('Cookie', cookie)
         .send({ id: 2 })
         .expect(/deleted/)
@@ -189,11 +188,11 @@ describe('todo', () => {
 
   });
 
-  describe('DELETE /delete-list', () => {
+  describe('DELETE /api/delete-list', () => {
 
     it('should delete list in the page', (done) => {
       request(createApp(config))
-        .delete('/delete-list')
+        .delete('/api/delete-list')
         .set('Cookie', cookie)
         .send({ id: 1 })
         .expect(/deleted/)
@@ -203,4 +202,3 @@ describe('todo', () => {
   });
 
 });
-
