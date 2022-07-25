@@ -1,15 +1,26 @@
 class Lists {
   #lists;
+  #last;
   constructor(lists) {
     this.#lists = lists;
+    this.#last = lists[0];
   }
 
   find(id) {
     return this.#lists.find(list => list.id === id);
   }
 
-  getNewListId() {
-    return this.#lists[this.#lists.length - 1].id + 1;
+  search(key) {
+    return this.#lists.filter(list =>
+      list.name.toLowerCase().includes(key.toLowerCase()));
+  }
+
+  #getId() {
+    return this.#lists[0].id + 1;
+  }
+
+  getLast() {
+    return this.#last;
   }
 
   getListsFrom(username) {
@@ -18,11 +29,11 @@ class Lists {
   }
 
   addList(title, username) {
-    const list = {
-      id: this.getNewListId(), username, title,
+    this.#last = {
+      id: this.#getId(), username, title,
       done: false, deleted: false
     };
-    this.#lists.push(list);
+    this.#lists.unshift(this.#last);
   }
 
   deleteList(id) {

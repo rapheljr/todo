@@ -28,9 +28,14 @@ const createHome = (details) => `<!DOCTYPE html>
     <main>
     <div class="search">
       <input class="text" type="text" onkeyup="search()" placeholder="Search..." id="search">
-      <label class="container-checkbox">done
-        <input class="checkbox" type="checkbox" onclick="search()" name="status" id="status">
+      <div>
+      <label class="container-checkbox">&nbsp;Done&nbsp;
+      <input class="checkbox" type="checkbox" onclick="search()" name="status" id="done">
       </label>
+      <label class="container-checkbox">&nbsp;Undone&nbsp;
+      <input class="checkbox" type="checkbox" onclick="search()" name="status" id="undone">
+      </label>
+      </div>
     </div>
     <h2>Create</h2>
     <div class="adding-list">

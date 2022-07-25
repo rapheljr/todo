@@ -90,9 +90,9 @@ main {
   border: 0;
   outline: none;
   margin: 1em;
-  margin: 1em;
-  position: relative;
-  left: 30%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .text {

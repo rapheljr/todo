@@ -1,11 +1,17 @@
 class Items {
   #items;
+  #last;
   constructor(items) {
     this.#items = items;
+    this.#last = items[0];
   }
 
-  getNewItemId() {
-    return this.#items[this.#items.length - 1].id + 1;
+  #getId() {
+    return this.#items[0].id + 1;
+  }
+
+  getLast() {
+    return this.#last;
   }
 
   find(id) {
@@ -18,11 +24,11 @@ class Items {
   }
 
   addItem(name, list) {
-    const item = {
-      id: this.getNewItemId(), name, list,
+    this.#last = {
+      id: this.#getId(), name, list,
       done: false, deleted: false
     };
-    this.#items.push(item);
+    this.#items.unshift(this.#last);
   }
 
   markItem(id) {

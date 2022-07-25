@@ -5,23 +5,25 @@ const validateUsername = (username) =>
 
 class Users {
   #users;
+  #last;
   constructor(users) {
     this.#users = users;
+    this.#last = users[0];
   }
 
   getUsers() {
     return this.#users.map((user) => user.username);
   }
 
-  #getNewUserId() {
-    return this.#users[this.#users.length - 1].id + 1;
+  #getId() {
+    return this.#users[0].id + 1;
   }
 
   #addNewUser(name, username, password) {
-    const details = {
-      id: this.#getNewUserId(), name, username, password
+    this.#last = {
+      id: this.#getId(), name, username, password
     };
-    this.#users.push(details);
+    this.#users.unshift(this.#last);
     return true;
   }
 

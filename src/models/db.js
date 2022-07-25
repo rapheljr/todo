@@ -52,15 +52,11 @@ class TODO {
 
   getLastList() {
     const lists = this.getUserDetails().lists;
-    const lastIndex = lists.length - 1;
-    return [lists[lastIndex]];
+    return [lists[0]];
   }
 
   getLastItem(id) {
-    const lists = this.getUserDetails().lists;
-    const theList = lists.find(list => list.id === id);
-    const lastIndex = theList.items.length - 1;
-    return [theList.items[lastIndex]];
+    return [this.#items.getLast()];
   }
 
   addList(title) {
