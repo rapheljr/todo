@@ -201,4 +201,30 @@ describe('todo', () => {
 
   });
 
+  describe('POST /api/edit-list', () => {
+
+    it('should edit list in the page', (done) => {
+      request(createApp(config))
+        .post('/api/edit-list')
+        .set('Cookie', cookie)
+        .send({ id: 1, title: 'wholesale' })
+        .expect(/edited/)
+        .expect(200, done);
+    });
+
+  });
+
+  describe('POST /api/edit-item', () => {
+
+    it('should edit list in the page', (done) => {
+      request(createApp(config))
+        .post('/api/edit-item')
+        .set('Cookie', cookie)
+        .send({ id: 1, title: 'wholesale' })
+        .expect(/edited/)
+        .expect(200, done);
+    });
+
+  });
+
 });

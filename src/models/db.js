@@ -1,40 +1,6 @@
-const lodash = require('lodash');
-
 const { Users } = require('./users.js');
 const { Lists } = require('./lists.js');
 const { Items } = require('./items.js');
-
-const includes = (text, letters) =>
-  text.toLowerCase().includes(letters.toLowerCase());
-
-const itemMatch = (list, key, status, open) => {
-  list.items = list.items.filter(item => {
-    if (status) {
-      return includes(item.name, key) && item.done;
-    }
-    return includes(item.name, key);
-  });
-  if (list.items.length > 0) {
-    open.push(list.id);
-    return true;
-  }
-};
-
-const titleMatch = (list, key, status, open) => {
-  if (includes(list.title, key)) {
-    if (status) {
-      open.push(list.id);
-      list.items = list.items.filter(item => {
-        return includes(item.name, key) && item.done;
-      });
-      if (!list.items.length) {
-        return false;
-      }
-    }
-    return true;
-  }
-  return itemMatch(list, key, status, open);
-};
 
 class TODO {
   #content;
@@ -123,15 +89,6 @@ class TODO {
 
   editItem(id, name) {
     this.#items.editItem(id, name);
-  }
-
-  search(key, status) {
-    const lists = this.getUserDetails().lists;
-    const open = [];
-    const filteredLists = lists.filter(list =>
-      titleMatch(list, key, status, open));
-    filteredLists.push(lodash.uniq(open));
-    return filteredLists;
   }
 }
 

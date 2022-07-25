@@ -1,14 +1,6 @@
 const reload = () => {
   get('/api/lists', appendList);
-};
-
-const search = () => {
-  const search = document.getElementById('search');
-  const status = document.getElementById('status');
-  const stat = status.checked;
-  const value = search.value;
-  const body = `key=${value}&check=${stat}`;
-  post('/api/search', body, searchList);
+  addNewSearch();
 };
 
 const collapse = (id) => {
@@ -20,43 +12,30 @@ const collapse = (id) => {
 const appendList = (XHR) => {
   const lists = document.getElementById('lists');
   const list = createLists(JSON.parse(XHR.response));
-  lists.append(...list);
-};
-
-const openList = (id) => {
-  try {
-    const list = document.getElementById(`title-${id}`);
-    list.click();
-  } catch (error) {
-  }
-};
-
-const searchList = (XHR) => {
-  const lists = document.getElementById('lists');
-  const replace = JSON.parse(XHR.response);
-  const [open] = replace.splice(-1);
-  const list = createLists(replace);
-  lists.replaceChildren(...list);
-  open.forEach(openList);
+  lists.prepend(...list);
+  addNewSearch();
 };
 
 const appendItem = (id) =>
   (XHR) => {
     const list = document.getElementById(`list-${id}-items`);
     const items = createItems(JSON.parse(XHR.response));
-    list.append(...items);
+    list.prepend(...items);
+    addNewSearch();
   };
 
 const removeItem = (id) =>
   (XHR) => {
     const item = document.getElementById(`item-${id}`);
     item.remove();
+    addNewSearch();
   };
 
 const removeList = (id) =>
   (XHR) => {
     const list = document.getElementById(`list-${id}`);
     list.remove();
+    addNewSearch();
   };
 
 const addList = () => {
@@ -75,7 +54,7 @@ const editList = (event, id) => {
     const value = title.innerText.trim();
     if (value) {
       const body = `title=${value}&id=${id}`;
-      post('/api/edit-list', body, () => { });
+      post('/api/edit-list', body, addNewSearch);
     }
   }
 };
@@ -86,7 +65,7 @@ const editItem = (event, id) => {
     const value = name.innerText.trim();
     if (value) {
       const body = `item=${value}&id=${id}`;
-      post('/api/edit-item', body, () => { });
+      post('/api/edit-item', body, addNewSearch);
     }
   }
 };
@@ -125,7 +104,7 @@ const deleteItem = (id) => {
 
 const markItem = (id) => {
   const body = `id=${id}`;
-  post('/api/mark-item', body, () => { });
+  post('/api/mark-item', body, addNewSearch);
 };
 
 const isEnter = (event) => event.key === 'Enter';
@@ -151,11 +130,11 @@ const createList = (list) => {
       ['div', { id: `title-${list.id}`, className: 'title', contentEditable: 'true', onkeydown: (event) => editList(event, list.id) }, list.title],
       ['div', { className: 'delete-list fa-solid fa-trash-can', onclick: () => deleteList(list.id) }]],
     ['div', { className: 'content', id: `content-${list.id}` },
-      ['div', { id: `list-${list.id}-items` }, ...createItems(list.items)],
       ['div', { className: 'adding' },
         ['input', {
           type: 'text', className: 'text', placeholder: 'Enter item...', onkeydown: (event) => addItemEnter(event, list.id), id: `text-${list.id}`
-        }], ['div', { className: 'add-item fa-solid fa-plus', onclick: () => addItem(list.id) }]]
+        }], ['div', { className: 'add-item fa-solid fa-plus', onclick: () => addItem(list.id) }]],
+      ['div', { id: `list-${list.id}-items` }, ...createItems(list.items)],
     ]
   ]
 

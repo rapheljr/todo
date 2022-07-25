@@ -1,7 +1,7 @@
 const makeXhrRequest = (cb, method, path, body = '') => {
   const XHR = new XMLHttpRequest();
   XHR.onload = () => {
-    if (XHR.status == 200) {
+    if (XHR.status === 200) {
       return cb(XHR);
     }
     console.log('Error in fetching', method, path);
