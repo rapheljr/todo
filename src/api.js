@@ -8,7 +8,6 @@ const { editList } = require('./handlers/editList.js');
 const { editItem } = require('./handlers/editItem.js');
 const { deleteList } = require('./handlers/deleteList.js');
 const { deleteItem } = require('./handlers/deleteItem.js');
-const { search } = require('./handlers/search.js');
 
 const createApi = (db) => {
   const api = express.Router();
@@ -21,7 +20,6 @@ const createApi = (db) => {
   api.post('/edit-item', editItem(db));
   api.delete('/delete-list', deleteList(db));
   api.delete('/delete-item', deleteItem(db));
-  api.post('/search', search);
 
   return api;
 };

@@ -118,7 +118,7 @@ const createItem = (item) => {
     ],
     ['div', { className: 'delete-item fa-solid fa-trash-can', onclick: () => deleteItem(item.id), id: 'delete' }
     ]
-  ]
+  ];
 
   return tagOf(...dom);
 };
@@ -136,7 +136,7 @@ const createList = (list) => {
         }], ['div', { className: 'add-item fa-solid fa-plus', onclick: () => addItem(list.id) }]],
       ['div', { id: `list-${list.id}-items` }, ...createItems(list.items)],
     ]
-  ]
+  ];
 
   return tagOf(...dom);
 };
