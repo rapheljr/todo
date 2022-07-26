@@ -55,7 +55,7 @@ class TODO {
     return [lists[0]];
   }
 
-  getLastItem(id) {
+  getLastItem() {
     return [this.#items.getLast()];
   }
 

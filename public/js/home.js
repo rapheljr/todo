@@ -1,40 +1,34 @@
 const reload = () => {
-  get('/api/lists', appendList);
+  GET('/api/lists', prepend('lists', identity, createLists));
   addNewSearch();
 };
 
+const getContentId = id => 'content-' + id;
+
 const collapse = (id) => {
-  const content = document.getElementById('content-' + id);
+  const content = document.getElementById(getContentId(id));
   const result = content.style.display === 'block';
   content.style.display = result ? 'none' : 'block';
 };
 
-const appendList = (XHR) => {
-  const lists = document.getElementById('lists');
-  const list = createLists(JSON.parse(XHR.response));
-  lists.prepend(...list);
-  addNewSearch();
-};
+const getListItem = id => `list-${id}-items`;
+const identity = x => x;
 
-const appendItem = (id) =>
+const prepend = (id, getId, cb) =>
   (XHR) => {
-    const list = document.getElementById(`list-${id}-items`);
-    const items = createItems(JSON.parse(XHR.response));
-    list.prepend(...items);
+    const element = document.getElementById(getId(id));
+    const child = cb(JSON.parse(XHR.response));
+    element.prepend(...child);
     addNewSearch();
   };
 
-const removeItem = (id) =>
-  (XHR) => {
-    const item = document.getElementById(`item-${id}`);
-    item.remove();
-    addNewSearch();
-  };
+const getItemId = id => 'item-' + id;
+const getListId = id => 'list-' + id;
 
-const removeList = (id) =>
+const remove = (id, getId) =>
   (XHR) => {
-    const list = document.getElementById(`list-${id}`);
-    list.remove();
+    const element = document.getElementById(getId(id));
+    element.remove();
     addNewSearch();
   };
 
@@ -44,7 +38,7 @@ const addList = () => {
   if (value) {
     const body = `title=${value}`;
     title.value = '';
-    post('/api/add-list', body, appendList);
+    POST('/api/add-list', body, prepend('lists', identity, createLists));
   }
 };
 
@@ -55,21 +49,23 @@ const editList = (event, id) => {
     const value = strip(title);
     if (value) {
       const body = `title=${value}&id=${id}`;
-      post('/api/edit-list', body, addNewSearch);
+      POST('/api/edit-list', body, addNewSearch);
     }
   }
 };
 
 const strip = (element) => element.innerText.trim().replaceAll('\n', '');
 
+const getItemName = id => `item-${id}-name`;
+
 const editItem = (event, id) => {
   if (isEnter(event)) {
     event.preventDefault();
-    const name = document.getElementById(`item-${id}-name`);
+    const name = document.getElementById(getItemName(id));
     const value = strip(name);
     if (value) {
       const body = `item=${value}&id=${id}`;
-      post('/api/edit-item', body, addNewSearch);
+      POST('/api/edit-item', body, addNewSearch);
     }
   }
 };
@@ -80,18 +76,15 @@ const addListEnter = (event) => {
   }
 };
 
-const deleteList = (id) => {
-  const body = `id=${id}`;
-  deleteMethod('/api/delete-list', body, removeList(id));
-};
+const getTextId = (id) => 'text-' + id;
 
 const addItem = (id) => {
-  const text = document.getElementById('text-' + id);
+  const text = document.getElementById(getTextId(id));
   const value = text.value.trim();
   if (value) {
     const body = `item=${value}&list=${id}`;
     text.value = '';
-    post('/api/add-item', body, appendItem(id));
+    POST('/api/add-item', body, prepend(id, getListItem, createItems));
   }
 };
 
@@ -101,14 +94,18 @@ const addItemEnter = (event, id) => {
   }
 };
 
+const getId = (id) => `id=${id}`;
+
+const deleteList = (id) => {
+  DELETE('/api/delete-list', getId(id), remove(id, getListId));
+};
+
 const deleteItem = (id) => {
-  const body = `id=${id}`;
-  deleteMethod('/api/delete-item', body, removeItem(id));
+  DELETE('/api/delete-item', getId(id), remove(id, getItemId));
 };
 
 const markItem = (id) => {
-  const body = `id=${id}`;
-  post('/api/mark-item', body, addNewSearch);
+  POST('/api/mark-item', getId(id), addNewSearch);
 };
 
 const isEnter = (event) => event.key === 'Enter';

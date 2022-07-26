@@ -11,8 +11,8 @@ const makeXhrRequest = (cb, method, path, body = '') => {
   XHR.send(body);
 };
 
-const get = (url, cb) => makeXhrRequest(cb, 'GET', url);
+const GET = (url, cb) => makeXhrRequest(cb, 'GET', url);
 
-const post = (url, body, cb) => makeXhrRequest(cb, 'POST', url, body);
+const POST = (url, body, cb) => makeXhrRequest(cb, 'POST', url, body);
 
-const deleteMethod = (url, body, cb) => makeXhrRequest(cb, 'DELETE', url, body);
+const DELETE = (url, body, cb) => makeXhrRequest(cb, 'DELETE', url, body);

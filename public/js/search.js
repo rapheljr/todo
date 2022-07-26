@@ -1,63 +1,3 @@
-const includes = (text, letters) =>
-  text.toLowerCase().includes(letters.toLowerCase());
-
-const itemMatch = (list, key, { done, undone }, open) => {
-  list.items = list.items.filter(item => includes(item.name, key));
-  const filtered = list.items.filter(item => {
-    if (done) {
-      return item.done;
-    }
-  });
-  filtered.concat(list.items.filter(item => {
-    if (undone) {
-      return !item.done;
-    }
-  }));
-  list.items = filtered;
-  if (list.items.length > 0) {
-    open.push(list.id);
-    return true;
-  }
-};
-
-const titleMatch = (list, key, { done, undone }, open) => {
-  if (!includes(list.title, key)) {
-    return itemMatch(list, key, { done, undone }, open);
-  }
-  if (done) {
-    open.push(list.id);
-    list.items = list.items
-      .filter(item => includes(item.name, key) && item.done);
-    if (!list.items.length) {
-      return false;
-    }
-  }
-  if (undone) {
-    open.push(list.id);
-    list.items = list.items
-      .filter(item => includes(item.name, key) && !item.done);
-    if (!list.items.length) {
-      return false;
-    }
-  }
-  return true;
-};
-
-const itemKeyMatch = (list, key, open) => {
-  list.items = list.items.filter(item => includes(item.name, key));
-  if (list.items.length) {
-    open.push(list.id);
-    return true;
-  }
-};
-
-const titleKeyMatch = (list, key, open) => {
-  if (includes(list.title, key)) {
-    return true;
-  }
-  return itemKeyMatch(list, key, open);
-};
-
 let search;
 
 const updateSearch = (XHR) => {
@@ -65,15 +5,7 @@ const updateSearch = (XHR) => {
 };
 
 const addNewSearch = () => {
-  get('/api/lists', updateSearch);
-};
-
-const filterList = (replace, key) => {
-  const lists = document.getElementById('lists');
-  const [open] = replace.splice(-1);
-  const list = createLists(replace, key);
-  lists.replaceChildren(...list);
-  open.forEach(openList);
+  GET('/api/lists', updateSearch);
 };
 
 const openList = (id) => {
@@ -84,6 +16,14 @@ const openList = (id) => {
   }
 };
 
+const filterList = (replace, key) => {
+  const lists = document.getElementById('lists');
+  const [open] = replace.splice(-1);
+  const list = createLists(replace, key);
+  lists.replaceChildren(...list);
+  open.forEach(openList);
+};
+
 const searching = (text) => () => {
   const open = [];
   const key = document.getElementById('search').value;
@@ -91,9 +31,9 @@ const searching = (text) => () => {
   const undone = document.getElementById('undone').checked;
   const response = JSON.parse(text).filter(list => {
     if (done === undone) {
-      return titleKeyMatch(list, key, open);
+      return keyFilter(list, key, open);
     }
-    return titleMatch(list, key, { done, undone }, open);
+    return statusFilter(list, key, { done, undone }, open);
   });
   response.push(open);
   filterList(response, key);
