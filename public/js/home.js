@@ -42,6 +42,15 @@ const addList = () => {
   }
 };
 
+const showStatus = (id, what) => {
+  const message = document.getElementById(`msg-${id}-${what}`);
+  message.innerHTML = 'Updated';
+  setTimeout(() => {
+    message.innerHTML = '';
+  }, 1000);
+  addNewSearch();
+};
+
 const editList = (event, id) => {
   if (isEnter(event)) {
     event.preventDefault();
@@ -49,7 +58,7 @@ const editList = (event, id) => {
     const value = strip(title);
     if (value) {
       const body = `title=${value}&id=${id}`;
-      POST('/api/edit-list', body, addNewSearch);
+      POST('/api/edit-list', body, () => showStatus(id, 'list'));
     }
   }
 };
@@ -65,7 +74,7 @@ const editItem = (event, id) => {
     const value = strip(name);
     if (value) {
       const body = `item=${value}&id=${id}`;
-      POST('/api/edit-item', body, addNewSearch);
+      POST('/api/edit-item', body, () => showStatus(id, 'item'));
     }
   }
 };
@@ -123,13 +132,14 @@ const highlight = (text, key) => {
 const createItem = (item, key) => {
   const dom = [
     'div', { className: 'item', id: `item-${item.id}` },
-    ['div', { className: 'title' },
+    ['div', { className: 'title-item' },
       ['input', { type: 'checkbox', className: 'checkbox', checked: item.done, onclick: () => markItem(item.id) }],
       ['div', {
         id: `item-${item.id}-name`, className: 'name', contentEditable: 'true', onkeydown: (event) => editItem(event, item.id),
         innerHTML: highlight(item.name, key)
       },]
     ],
+    ['div', { id: `msg-${item.id}-item`, className: 'msg' },],
     ['div', { className: 'delete-item fa-solid fa-trash-can', onclick: () => deleteItem(item.id), id: 'delete' }
     ]
   ];
@@ -141,7 +151,8 @@ const createList = (list, key) => {
   const dom = [
     'div', { className: 'list', id: `list-${list.id}` },
     ['div', { onclick: () => collapse(list.id), className: 'collapsible' },
-      ['div', { id: `title-${list.id}`, className: 'title', contentEditable: 'true', onkeydown: (event) => editList(event, list.id), innerHTML: highlight(list.title, key) },],
+      ['div', { id: `title-${list.id}`, className: 'title-list', contentEditable: 'true', onkeydown: (event) => editList(event, list.id), innerHTML: highlight(list.title, key) },],
+      ['div', { id: `msg-${list.id}-list`, className: 'msg' },],
       ['div', { className: 'delete-list fa-solid fa-trash-can', onclick: () => deleteList(list.id) }]],
     ['div', { className: 'content', id: `content-${list.id}` },
       ['div', { className: 'adding' },

@@ -39,7 +39,7 @@ body {
 .item {
   display: flex;
   align-items: center;
-  justify-content: space-around;
+  justify-content: space-between;
 }
 
 .adding-list {
@@ -62,7 +62,6 @@ body {
 
 .name {
   padding: 1em;
-  /* width: 222px; */
   flex: 1;
   outline: none;
 }
@@ -75,10 +74,15 @@ main {
   width: 50%;
 }
 
-.title {
+.title-item {
   display: flex;
   align-items: center;
-  flex: 1;
+  outline: none;
+}
+
+.title-list {
+  display: flex;
+  align-items: center;
   outline: none;
 }
 
@@ -108,14 +112,8 @@ mark {
   outline: none;
 }
 
-.add-item {
-  /* border-radius: .5em; */
-  /* background-color: #181820; */
-}
-
 .collapsible {
   border-radius: .5em;
-  /* background-color: #181820; */
   background-color: #202020;
   cursor: pointer;
   padding: 1.5em;
