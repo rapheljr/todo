@@ -95,6 +95,11 @@ main {
   justify-content: space-between;
 }
 
+mark {
+  background-color: white;
+  color: black;
+}
+
 .text {
   border-radius: .3em;
   padding: .3em;

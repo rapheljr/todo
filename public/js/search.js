@@ -68,10 +68,10 @@ const addNewSearch = () => {
   get('/api/lists', updateSearch);
 };
 
-const filterList = (replace) => {
+const filterList = (replace, key) => {
   const lists = document.getElementById('lists');
   const [open] = replace.splice(-1);
-  const list = createLists(replace);
+  const list = createLists(replace, key);
   lists.replaceChildren(...list);
   open.forEach(openList);
 };
@@ -96,5 +96,5 @@ const searching = (text) => () => {
     return titleMatch(list, key, { done, undone }, open);
   });
   response.push(open);
-  filterList(response);
+  filterList(response, key);
 };
