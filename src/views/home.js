@@ -20,10 +20,10 @@ const createHome = (details) => `<!DOCTYPE html>
   <div class="page">
   <header class="head">
     <div class="welcome">
-      <h1>Welcome</h1>
+      <h1>Welcome <div class="fa-solid fa-door-open"></div></h1>
       <h2>${details.name}</h2>
     </div>
-    <a href="logout">Logout</a>
+    <a href="logout" class="fa-solid fa-arrow-right-from-bracket"></a>
   </header>
     <main>
     <div class="search">
@@ -44,7 +44,7 @@ const createHome = (details) => `<!DOCTYPE html>
     </div>
     <h2>Lists</h2>
       <div id="lists">
-      
+
       </div>
     </main>
 

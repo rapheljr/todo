@@ -1,5 +1,6 @@
 const fs = require('fs');
 const request = require('supertest');
+const { getDigest } = require('../src/models/users.js');
 const { createApp } = require('../src/todo.js');
 require('dotenv').config();
 
@@ -14,7 +15,7 @@ const config = {
 const setup = () => {
   const content = {
     users: [{
-      id: 1, name: 'name', username: 'user', password: 'pass'
+      id: 1, name: 'name', username: 'user', password: getDigest('pass')
     }],
     lists: [{
       id: 1, title: 'retail', username: 'user', deleted: false, done: true

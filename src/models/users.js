@@ -1,7 +1,17 @@
+const { createHash } = require('crypto');
+
 const isUsernameValid = (username) => /^\w{0,}$/.test(username);
 
 const validateUsername = (username) =>
   isUsernameValid(username) && username.length > 0;
+
+const addSalt = text => text + 'sALT';
+
+const getDigest = text => {
+  const sha256 = createHash('sha256');
+  sha256.update(addSalt(text));
+  return sha256.digest('hex');
+};
 
 class Users {
   #users;
@@ -21,7 +31,7 @@ class Users {
 
   #addNewUser(name, username, password) {
     this.#last = {
-      id: this.#getId(), name, username, password
+      id: this.#getId(), name, username, password: getDigest(password)
     };
     this.#users.unshift(this.#last);
     return true;
@@ -30,7 +40,7 @@ class Users {
   #validatePassword(username, password) {
     const user = this.find(username);
     if (user) {
-      return user.password === password;
+      return user.password === getDigest(password);
     }
     return false;
   }
@@ -56,4 +66,4 @@ class Users {
 
 }
 
-module.exports = { Users };
+module.exports = { Users, getDigest };
