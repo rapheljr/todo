@@ -8,7 +8,9 @@ const main = () => {
     session: JSON.parse(sessionKeys),
   };
   const app = createApp(config);
-  app.listen(+PORT, () => console.log('App started listening', +PORT));
+  app.listen(+PORT, () =>
+    console.log(`Server start at http://localhost:${PORT}`)
+  );
 };
 
 main();

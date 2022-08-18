@@ -10,7 +10,7 @@
     "setup": "bash setup.sh",
     "build": "bash setup.sh",
     "test": "mocha",
-    "start": "nodemon ."
+    "start": "node ."
   },
   "keywords": [],
   "author": "",
