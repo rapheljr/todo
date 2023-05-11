@@ -9,7 +9,7 @@ const { injectDB } = require('./middleware/injectDB.js');
 const setMiddleware = (app, config) => {
   const { session, db, env } = config;
 
-  if (env === 'production') {
+  if (env === 'prod') {
     app.use(morgan('tiny'));
     app.use(errorhandler());
   }
